@@ -27,6 +27,7 @@
       --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
       --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
       --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
+      --pane-max-h: min(72vh, 640px); /* a bit shorter so footer stays visible on mobile */
     }
 
     /* Header */
@@ -35,33 +36,19 @@
       background:
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
+      text-align:center;
     }
     .fg-compact-embed .title{margin:0 0 2px;font-size:clamp(16px,2.2vw,20px);line-height:1.2;font-weight:800;color:#fff!important}
     .fg-compact-embed .sub{margin:0;color:rgba(255,255,255,.92)!important;font-size:12px}
-    .fg-sub{
-      margin:0;
-      color:rgba(255,255,255,.92);
-      font-size:12px;
-    }
-    .fg-sub strong {
-      color: #ECFFF4 !important;
-      font-weight: 900;
-    }
-    .fg-compact-embed .head {
-      text-align: center; /* ✅ centers everything inside the header */
-    }
-    
-    .fg-compact-embed .sub,
-    .fg-sub {
-      text-align: center; /* ✅ centers the “Click a city to view…” line */
-      width: 100%;
-      display: block;
-    }
+    .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
+    .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
     .fg-compact-embed .row{
-      display:grid;grid-template-columns:40px 1fr minmax(240px,48%);gap:10px;align-items:center;margin:8px 0;
+      display:grid;grid-template-columns:40px 1fr minmax(240px,48%);
+      gap:50px; /* ⬅️ more space between Rank and City */
+      align-items:center;margin:8px 0;
       border:1px solid var(--border)!important;border-radius:12px;padding:10px 12px;background:#fff!important;
       transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,background-color .15s ease,border-color .15s ease;
       transform-origin:center; cursor:pointer;
@@ -76,7 +63,7 @@
     }
 
     .fg-compact-embed .rank{display:flex;align-items:center;justify-content:center;font-weight:800;color:#475a50}
-    .fg-compact-embed .place{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--ink)}
+    .fg-compact-embed .place{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
     .fg-compact-embed .chip{width:26px;height:18px;border-radius:4px;overflow:hidden;border:1px solid #cfe4da;background:#fff;flex-shrink:0}
     .fg-compact-embed .chip img{width:100%;height:100%;object-fit:contain;display:block}
 
@@ -85,7 +72,7 @@
     .fg-compact-embed .bar{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
     .fg-compact-embed .val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:#0e1a12!important;background:#fff!important;border:2px solid #e6e9ed!important;border-radius:999px;padding:2px 8px}
 
-    /* Rank-based gradient dark → light (138 worst → 129 less-worst) */
+    /* Rank-based gradient dark → light */
     .fg-compact-embed .row[data-rank="138"] .bar{background:linear-gradient(90deg,#1F5D28,#56C257)!important}
     .fg-compact-embed .row[data-rank="137"] .bar{background:linear-gradient(90deg,#2A7331,#5DC65F)!important}
     .fg-compact-embed .row[data-rank="136"] .bar{background:linear-gradient(90deg,#2E8538,#63CA67)!important}
@@ -106,46 +93,45 @@
     .fg-details.open{margin:8px 0 12px;padding:12px;border-width:1px;max-height:420px;opacity:1;transform:translateY(0)}
     .fg-metrics-title {
       margin: 0 0 10px;
-      font-weight: 900;                /* ✅ Make it fully bold */
-      font-size: 16px;                 /* ✅ Slightly larger for hierarchy */
-      color: var(--brand-600);         /* ✅ Medium Action Network green */
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .fg-metrics-title {
-      color: var(--brand-700) !important;   /* ✅ Strong green */
       font-weight: 900 !important;
+      font-size: 16px;
+      color: var(--brand-700) !important;
+      display: flex; align-items: center; gap: 8px;
     }
-    .fg-metrics-title span,
-    .fg-metrics-title img {
-      filter: none;
-    }
-
-        .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     @media (max-width:640px){ .fg-metrics{grid-template-columns:repeat(2,minmax(0,1fr))} }
     @media (max-width:420px){ .fg-metrics{grid-template-columns:1fr} }
 
     .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
     .fg-card-head{display:flex;align-items:center;gap:8px}
-    .fg-label{font-size:12px;color:var(--muted);font-weight:700}
-    /* ✅ Make metric labels bold only */
-    .fg-label {
-      font-weight: 900 !important;
-      font-size: 14px !important; /* optional — remove if you want original size */
+
+    /* LABELS (small + bold, as requested) */
+    .fg-label{
+      font-size:14px !important;     /* ⬅️ smaller than 12 */
+      line-height:1.15;
+      color: var(--ink);
+      font-weight:900 !important;     /* ⬅️ bold */
+      letter-spacing:.1px;
     }
-        .fg-val{font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}
+
+    /* VALUES with /100 split */
+    .fg-val{display:flex;align-items:baseline;gap:2px}
+    .fg-val-main{font-size:20px;font-weight:800;color:var(--ink)}
+    .fg-val-max{font-size:11px;font-weight:600;color:var(--muted)}
+
     .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
     .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
 
-    /* NEW: icon sizing for metric heads */
+    /* NEW: icon sizing */
     .fg-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
 
-    /* Sleek internal scroll (desktop + mobile) */
-    .fg-compact-embed{ --pane-max-h: min(78vh, 760px); }
+    /* Sleek internal scroll — allow scroll chaining to page */
     .fg-compact-embed .table{
-      max-height: var(--pane-max-h); overflow:auto; -webkit-overflow-scrolling:touch;
-      overscroll-behavior:contain; scrollbar-gutter:stable both-edges;
+      max-height: var(--pane-max-h);
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior:auto;          /* ⬅️ let scroll pass to page at edges */
+      scrollbar-gutter:stable both-edges;
     }
     .fg-compact-embed .table::-webkit-scrollbar{ width:10px; height:8px }
     .fg-compact-embed .table::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
@@ -155,54 +141,38 @@
     .fg-compact-embed .table::-webkit-scrollbar-thumb:hover{ background:linear-gradient(180deg,var(--brand-700),var(--brand-600)) }
     .fg-compact-embed .table{ scrollbar-width:thin; scrollbar-color:var(--brand-600) var(--brand-50) }
 
-    /* Footer + embed button (Supermoon-style) */
+    /* Footer */
     .fg-compact-embed .fg-footer {
-      display: block !important;
-      text-align: center;
-      padding: 6px 0;
-      border-top: 1px solid var(--border);
+      display:block !important;
+      text-align:center;
+      padding:8px 0;                   /* a touch more padding for thumbs */
+      border-top:1px solid var(--border);
       background:
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
-      color: #fff;
-      position: relative;
-      overflow: visible;
+      color:#fff; position:relative; overflow:visible;
     }
-    .fg-compact-embed .footer-inner {
-      display: flex; justify-content: center; align-items: center; gap: 12px; position: relative;
+    .fg-compact-embed .footer-inner{display:flex;justify-content:center;align-items:center;gap:12px;position:relative}
+    .fg-compact-embed .embed-btn{
+      position:absolute;left:14px;background:#56C257;color:#fff;border:1px solid #56C257;
+      border-radius:8px;padding:6px 14px;font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;cursor:pointer;transition:.2s ease;
     }
-    .fg-compact-embed .embed-btn {
-      position: absolute; left: 14px; background: #56C257; color: #fff; border: 1px solid #56C257;
-      border-radius: 8px; padding: 6px 14px; font: 13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; cursor: pointer; transition: .2s ease;
-    }
-    .fg-compact-embed .embed-btn:hover { background:#3FA94B; border-color:#3FA94B; }
-    .fg-compact-embed .fg-footer img {
-      height: 52px; width: auto; display: inline-block; filter: brightness(0) invert(1);
-    }
+    .fg-compact-embed .embed-btn:hover{background:#3FA94B;border-color:#3FA94B}
+    .fg-compact-embed .fg-footer img{height:52px;width:auto;display:inline-block;filter:brightness(0) invert(1)}
 
     .fg-compact-embed .embed-wrapper{
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(600px, calc(100% - 24px));
-      display: none;
-      padding: 16px 20px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      background: #fff;
-      color: #111;
-      box-shadow: 0 12px 28px rgba(0,0,0,.18);
-      z-index: 1000;
+      position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+      width:min(600px, calc(100% - 24px));display:none;padding:16px 20px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);z-index:1000;
     }
     .fg-compact-embed .embed-wrapper::after{
       content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-8px;
       border:8px solid transparent; border-top-color:#fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.08));
     }
-    .fg-compact-embed #copy-status { display:none; color:#008000; font-size:13px; margin-top:6px; }
+    .fg-compact-embed #copy-status{display:none;color:#008000;font-size:13px;margin-top:6px}
     .fg-compact-embed .embed-wrapper textarea{
-      width:100%; height:140px; font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-      color:#111; background:#fff; padding:10px 12px; border:1px solid #ddd; border-radius:8px; resize:none;
+      width:100%;height:140px;font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      color:#111;background:#fff;padding:10px 12px;border:1px solid #ddd;border-radius:8px;resize:none;
     }
 
     /* Mobile footer tweaks */
@@ -216,7 +186,7 @@
     .fg-compact-embed .table-header{
       display:grid;
       grid-template-columns:40px 1fr minmax(240px,48%);
-      gap:10px;
+      gap:84px;             /* match rows */
       padding:10px 12px;
       margin:8px 12px 0;
       font-size:16px;
@@ -225,68 +195,20 @@
       text-shadow:0 0 1px rgba(47,133,56,.2), 0 0 8px rgba(86,194,87,.25);
       border-radius:10px;
     }
-  
-  /* Table header row */
-    .fg-compact-embed .table-header {
-      display:grid;
-      grid-template-columns:40px 1fr minmax(240px,48%);
-      gap:50px;
-      padding:10px 12px;
-      margin:8px 12px 0;
-      font-size:16px;
-      font-weight:800;
-      color:var(--brand-700);
-    }
-    
-    /* Rank + City stay left aligned */
+
+    /* Rank + City left; Index centred */
     .fg-compact-embed .table-header .h-rank,
-    .fg-compact-embed .table-header .h-city {
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-    }
-    
-    /* Add slight spacing for visual comfort */
-    .fg-compact-embed .table-header .h-city {
-      padding-left:6px; /* ✅ makes header spacing feel natural */
-    }
-    
-    /* Only Index column gets centred */
-    .fg-compact-embed .table-header .h-index {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
+    .fg-compact-embed .table-header .h-city { display:flex; align-items:center; justify-content:flex-start; }
+    .fg-compact-embed .table-header .h-city { padding-left:6px; }
+    .fg-compact-embed .table-header .h-index { display:flex; align-items:center; justify-content:center; text-align:center; }
+
     .fg-compact-embed .sortable{ cursor:pointer; user-select:none; position:relative; }
     .fg-compact-embed .sortable:focus{ outline:2px solid var(--brand-300); outline-offset:2px; border-radius:6px; }
     .fg-compact-embed .sortable::after{
-      content:""; margin-left:8px; border:5px solid transparent; opacity:.35;
-      border-top-color:var(--brand-700); transform:translateY(2px);
+      content:""; margin-left:8px; border:5px solid transparent; opacity:.35; border-top-color:var(--brand-700); transform:translateY(2px);
     }
-    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{
-      content:""; border:5px solid transparent; border-bottom-color:var(--brand-700); transform:translateY(-2px) rotate(180deg); opacity:1;
-    }
-    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{
-      content:""; border:5px solid transparent; border-top-color:var(--brand-700); transform:translateY(2px); opacity:1;
-    }
-    .fg-val {
-      display: flex;
-      align-items: baseline;
-      gap: 2px;
-    }
-    
-    .fg-val-main {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-    
-    .fg-val-max {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-    }
+    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{ border-bottom-color:var(--brand-700); transform:translateY(-2px) rotate(180deg); opacity:1; }
+    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{ border-top-color:var(--brand-700); transform:translateY(2px); opacity:1; }
   </style>
 
   <!-- HEADER -->
@@ -305,7 +227,7 @@
   <!-- TABLE BODY -->
   <div class="table" id="fg-table"><!-- Rows injected by script --></div>
 
-  <!-- FOOTER (Supermoon-style embed popup) -->
+  <!-- FOOTER -->
   <div class="fg-footer">
     <div class="footer-inner">
       <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
@@ -344,18 +266,13 @@
       /* Keep a copy for default (unsorted) render */
       const ORIGINAL = TOP10.slice();
 
-      /* State flags for all bottom-10 states */
+      /* Flags */
       const FLAGS = {
-        "HI": "Flag_of_Hawaii.svg",
-        "NY": "Flag_of_New_York.svg",
-        "NV": "Flag_of_Nevada.svg",
-        "CA": "Flag_of_California.svg",
-        "OR": "Flag_of_Oregon.svg",
-        "NC": "Flag_of_North_Carolina.svg",
-        "GA": "Flag_of_Georgia_(U.S._state).svg"
+        "HI":"Flag_of_Hawaii.svg","NY":"Flag_of_New_York.svg","NV":"Flag_of_Nevada.svg",
+        "CA":"Flag_of_California.svg","OR":"Flag_of_Oregon.svg","NC":"Flag_of_North_Carolina.svg","GA":"Flag_of_Georgia_(U.S._state).svg"
       };
-      
-      /* --- SVG icons (same set) --- */
+
+      /* Icons */
       const ICONS = {
         sports: () => `
           <svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -405,9 +322,9 @@
                 <div class="fg-label">Sports Access Score</div>
               </div>
               <div class="fg-val">
-              <span class="fg-val-main">${item.sports.toFixed(2)}</span>
-              <span class="fg-val-max">/100</span>
-            </div>
+                <span class="fg-val-main">${item.sports.toFixed(2)}</span>
+                <span class="fg-val-max">/100</span>
+              </div>
               <div class="fg-bar"><span></span></div>
             </div>
             <div class="fg-card">
@@ -415,11 +332,10 @@
                 ${ICONS.affordability()}
                 <div class="fg-label">Affordability Score</div>
               </div>
-             <div class="fg-val">
-              <span class="fg-val-main">${item.affordability.toFixed(2)}</span>
-              <span class="fg-val-max">/100</span>
-            </div>
-
+              <div class="fg-val">
+                <span class="fg-val-main">${item.affordability.toFixed(2)}</span>
+                <span class="fg-val-max">/100</span>
+              </div>
               <div class="fg-bar"><span></span></div>
             </div>
             <div class="fg-card">
@@ -428,9 +344,9 @@
                 <div class="fg-label">Atmosphere Score</div>
               </div>
               <div class="fg-val">
-              <span class="fg-val-main">${item.atmosphere.toFixed(2)}</span>
-              <span class="fg-val-max">/100</span>
-            </div>
+                <span class="fg-val-main">${item.atmosphere.toFixed(2)}</span>
+                <span class="fg-val-max">/100</span>
+              </div>
               <div class="fg-bar"><span></span></div>
             </div>
           </div>
@@ -469,7 +385,6 @@
         }
 
         function open(){
-          // close any other open row
           document.querySelectorAll('.fg-compact-embed .row[aria-expanded="true"]').forEach(r=>{
             if(r!==row){
               r.setAttribute('aria-expanded','false');
@@ -486,9 +401,8 @@
           details.classList.add('open');
           details.setAttribute('aria-hidden','false');
 
-          // animate bars (0–100)
           details.querySelectorAll('.fg-card').forEach(card=>{
-            const v = parseFloat(card.querySelector('.fg-val').textContent);
+            const v = parseFloat(card.querySelector('.fg-val-main').textContent);
             const bar = card.querySelector('.fg-bar > span');
             requestAnimationFrame(()=> bar.style.width = `${Math.max(0,Math.min(100,v))}%`);
           });
@@ -499,7 +413,7 @@
 
         function close(){
           row.setAttribute('aria-expanded','false');
-        details.classList.remove('open');
+          details.classList.remove('open');
           details.setAttribute('aria-hidden','true');
           details.querySelectorAll('.fg-bar > span').forEach(s=> s.style.width='0');
         }
@@ -520,7 +434,7 @@
         return {row, details};
       }
 
-      /* Render helper (clears and rebuilds table) */
+      /* Render */
       function renderTable(data){
         table.innerHTML = "";
         data.forEach(item=>{
@@ -531,7 +445,7 @@
         sendHeightToParent();
       }
 
-      /* ---- Auto-resize messaging to parent (iframe) ---- */
+      /* Auto-resize messaging */
       function sendHeightToParent() {
         try {
           const height = document.body.scrollHeight;
@@ -539,7 +453,7 @@
         } catch (e) {}
       }
 
-      /* Initial render: ORIGINAL order (no sorting) */
+      /* Initial render: ORIGINAL order (no sorting until user clicks) */
       renderTable(ORIGINAL);
 
       window.addEventListener("load", sendHeightToParent);
@@ -547,54 +461,53 @@
       const observer = new MutationObserver(sendHeightToParent);
       observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
-      /* ---- Sorting (starts only after user clicks) ---- */
+      /* Sorting (only after header clicks) */
       const headers = document.querySelectorAll('.table-header .sortable');
-      let currentSort = { key:null, dir:null }; // none by default
 
       function sortData(key, dir){
-        // Work on a copy of ORIGINAL so we always sort from the base set
         const arr = ORIGINAL.slice();
         const collator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
-
         arr.sort((a,b)=>{
           let res = 0;
-          if (key === 'city') {
-            res = collator.compare(a.city, b.city);
-          } else if (key === 'rank' || key === 'index') {
-            res = (a[key] < b[key]) ? -1 : (a[key] > b[key]) ? 1 : 0;
-          }
+          if (key === 'city') res = collator.compare(a.city, b.city);
+          else if (key === 'rank' || key === 'index') res = (a[key] < b[key]) ? -1 : (a[key] > b[key]) ? 1 : 0;
           return dir === 'asc' ? res : -res;
         });
         return arr;
       }
 
-      function clearHeaderStates(){
-        headers.forEach(h=> h.setAttribute('data-sort-dir',''));
-      }
+      function clearHeaderStates(){ headers.forEach(h=> h.setAttribute('data-sort-dir','')); }
 
       function onHeaderActivate(el){
         const key = el.getAttribute('data-sort-key');
         let dir = el.getAttribute('data-sort-dir');
-
-        // Toggle dir; if empty -> asc, asc -> desc, desc -> asc
         dir = (dir === 'asc') ? 'desc' : 'asc';
-
         clearHeaderStates();
         el.setAttribute('data-sort-dir', dir);
-        currentSort = { key, dir };
-
         const sorted = sortData(key, dir);
         renderTable(sorted);
       }
 
       headers.forEach(h=>{
         h.addEventListener('click', ()=> onHeaderActivate(h));
-        h.addEventListener('keydown', (e)=>{
-          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onHeaderActivate(h); }
-        });
+        h.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); onHeaderActivate(h); } });
       });
 
-      /* ---- Footer embed popup & copy ---- */
+      /* Scroll chaining helper for desktop wheels (when table hits edges) */
+      const scrollBox = document.querySelector('.fg-compact-embed .table');
+      if (scrollBox) {
+        scrollBox.addEventListener('wheel', (e) => {
+          const el = scrollBox;
+          const atTop = el.scrollTop <= 0;
+          const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+          if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+            e.preventDefault(); // allow page to scroll instead
+            window.scrollBy({ top: e.deltaY, behavior: 'auto' });
+          }
+        }, { passive: false });
+      }
+
+      /* Footer embed popup & copy */
       const btn     = document.getElementById('copy-embed-btn');
       const wrapper = document.getElementById('embed-wrapper');
       const ta      = document.getElementById('embed-code');
@@ -607,14 +520,11 @@
           btn.textContent = isHidden ? 'Hide Embed Code' : '🔗 Embed This Table';
           btn.setAttribute('aria-expanded', String(isHidden));
           if (isHidden) {
-            ta.focus();
-            ta.select();
+            ta.focus(); ta.select();
             try { document.execCommand('copy'); } catch(e) {}
             status.style.display = 'block';
             setTimeout(() => status.style.display = 'none', 2500);
-          } else {
-            btn.focus();
-          }
+          } else { btn.focus(); }
           sendHeightToParent();
         });
 
@@ -641,5 +551,6 @@
     })();
   </script>
 </section>
+
 </body>
 </html>
