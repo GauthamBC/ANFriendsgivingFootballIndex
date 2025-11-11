@@ -787,8 +787,8 @@
           /* ---- Auto-resize messaging to parent (iframe) ---- */
           function sendHeightToParent() {
             try {
-              const height = document.body.scrollHeight;
-              window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+            const height = document.getElementById("dw-fg")?.offsetHeight || document.body.scrollHeight;
+            window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
             } catch (e) {}
           }
           window.addEventListener("load", sendHeightToParent);
