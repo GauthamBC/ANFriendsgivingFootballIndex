@@ -134,7 +134,7 @@
       font-weight: 900 !important;
       font-size: 14px !important; /* optional — remove if you want original size */
     }
-        .fg-val{font-weight:800;font-size:12px;line-height:1;font-variant-numeric:tabular-nums}
+        .fg-val{font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}
     .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
     .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
 
@@ -270,6 +270,23 @@
     .fg-compact-embed .sortable[data-sort-dir="desc"]::after{
       content:""; border:5px solid transparent; border-top-color:var(--brand-700); transform:translateY(2px); opacity:1;
     }
+    .fg-val {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    
+    .fg-val-main {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    
+    .fg-val-max {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
   </style>
 
   <!-- HEADER -->
@@ -385,9 +402,12 @@
             <div class="fg-card">
               <div class="fg-card-head">
                 ${ICONS.sports()}
-                <div class="fg-label">Sports Access Score (0-100)</div>
+                <div class="fg-label">Sports Access Score</div>
               </div>
-              <div class="fg-val">${item.sports.toFixed(2)}</div>
+              <div class="fg-val">
+              <span class="fg-val-main">${item.sports.toFixed(2)}</span>
+              <span class="fg-val-max">/100</span>
+            </div>
               <div class="fg-bar"><span></span></div>
             </div>
             <div class="fg-card">
@@ -395,7 +415,11 @@
                 ${ICONS.affordability()}
                 <div class="fg-label">Affordability Score</div>
               </div>
-              <div class="fg-val">${item.affordability.toFixed(2)}</div>
+             <div class="fg-val">
+              <span class="fg-val-main">${item.affordability.toFixed(2)}</span>
+              <span class="fg-val-max">/100</span>
+            </div>
+
               <div class="fg-bar"><span></span></div>
             </div>
             <div class="fg-card">
@@ -403,7 +427,10 @@
                 ${ICONS.atmosphere(uid)}
                 <div class="fg-label">Atmosphere Score</div>
               </div>
-              <div class="fg-val">${item.atmosphere.toFixed(2)}</div>
+              <div class="fg-val">
+              <span class="fg-val-main">${item.atmosphere.toFixed(2)}</span>
+              <span class="fg-val-max">/100</span>
+            </div>
               <div class="fg-bar"><span></span></div>
             </div>
           </div>
