@@ -20,7 +20,7 @@
       #friendsgiving-table, #friendsgiving-table * { box-sizing: border-box; }
 
       /* ===== Datawrapper-style table (Action Network Green + Mint) ===== */
-      /* ===== Brand variables + FLAT wrapper (elevated container removed) ===== */
+      /* ===== Flattened wrapper (no elevation) ===== */
       #dw-fg{
         /* Brand palette */
         --brand-50:#F6FFF9; 
@@ -33,18 +33,18 @@
         --bg:#ffffff;
         --text:#1f2937;
 
-        /* ⬇️ Flattened wrapper (no elevation) */
-        background: transparent !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-        border: 0 !important;
-        box-shadow: none !important;
+        /* FLAT wrapper */
+        background:#ffffff;
+        border-radius:0;
+        padding:0;
+        border:0;
+        box-shadow:none;
 
         /* Keep core layout behaviour */
-        box-sizing: border-box;
-        overflow-x: hidden;
-        display: block;
-        max-width: 100%;
+        box-sizing:border-box;
+        overflow-x:hidden;
+        display:block;
+        max-width:100%;
       }
 
       /* Controls layout */
@@ -139,7 +139,6 @@
       }
 
       /* Header */
-      /* Clean solid Action Network green header */
       #dw-fg thead th{
         background: var(--brand-600) !important;
         color:#ffffff !important;
@@ -181,8 +180,14 @@
       #dw-fg tbody tr:hover{background:var(--hover,#BCE5D6); box-shadow:inset 3px 0 0 var(--brand-500)}
       #dw-fg thead th{position:sticky; top:var(--sticky-top,0); z-index:5}
 
-      /* Scrollbar + height */
-      #dw-fg .dw-scroll{max-height:var(--table-max-h,560px); overflow-y:auto; -ms-overflow-style:auto; scrollbar-width:thin; scrollbar-color:var(--scroll-thumb) transparent}
+      /* Scrollbar + height (base) */
+      #dw-fg .dw-scroll{
+        max-height:var(--table-max-h,560px);
+        overflow-y:auto;
+        -ms-overflow-style:auto;
+        scrollbar-width:thin;
+        scrollbar-color:var(--scroll-thumb) transparent
+      }
       #dw-fg .dw-scroll::-webkit-scrollbar:horizontal{height:0; display:none}
       #dw-fg .dw-scroll::-webkit-scrollbar:vertical{width:var(--vbar-w)}
       #dw-fg .dw-scroll:hover::-webkit-scrollbar:vertical{width:var(--vbar-w-hover)}
@@ -196,9 +201,11 @@
       /* Empty-state row */
       #dw-fg tr.dw-empty td{text-align:center; color:#6b7280; font-style:italic; padding:18px 14px; background:linear-gradient(0deg,#fff,var(--brand-50))}
 
-      /* ===== Supermoon-style Footer with centered embed ===== */
+      /* ===== Footer (sticky, always visible) ===== */
       #dw-fg .dw-footer{
-        position: relative;
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
         display:block;
         padding:10px 12px 14px;
         margin-top:12px;
@@ -208,7 +215,7 @@
           linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
         color:#fff;
         overflow:visible;
-        border-radius:0 0 12px 12px;
+        border-radius:0; /* flat */
       }
       #dw-fg .footer-inner{
         display:flex; align-items:center; justify-content:center; gap:12px; position:relative;
@@ -246,6 +253,17 @@
         border-bottom:1px dashed transparent; transition:color .15s, border-color .15s;
       }
       #dw-fg .dw-brand-left:is(:hover,:focus-visible){color:var(--brand-100); border-color:var(--brand-100); outline:none}
+
+      /* ===== Lock-scroll mode when >10 rows selected ===== */
+      #dw-fg.lock-scroll .dw-scroll{
+        height: var(--table-max-h, 560px);
+        max-height: var(--table-max-h, 560px);
+        overflow-y: auto;
+      }
+      #dw-fg:not(.lock-scroll) .dw-scroll{
+        height: auto;
+        max-height: var(--table-max-h, 560px);
+      }
 
       /* Responsiveness */
       #dw-fg .dw-controls{
@@ -285,6 +303,12 @@
         #dw-fg .dw-select{min-width:68px; height:32px; padding:6px 22px 6px 8px; font-size:13px;}
         #dw-fg .dw-btn{width:32px; height:32px; padding:0; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
         #dw-fg .embed-wrapper{ width: calc(100% - 16px); }
+
+        /* In lock-scroll mode, cap height a bit further to keep footer visible */
+        #dw-fg.lock-scroll .dw-scroll{
+          max-height: min(var(--table-max-h,560px), 65vh);
+          height: min(var(--table-max-h,560px), 65vh);
+        }
       }
 
     </style>
@@ -673,8 +697,20 @@
           });
           syncClearBtn();
 
+          /* ---- Lock-scroll toggle when >10 (or All) ---- */
+          function setLockScroll(){
+            const chosen = parseInt(sizeSel.value, 10) || 0; // 0 = All
+            const lock = (chosen === 0 || chosen > 10);
+            root.classList.toggle('lock-scroll', lock);
+          }
+
           /* page size + nav */
-          sizeSel.addEventListener('change', e=>{ pageSize = parseInt(e.target.value,10) || 0; page=1; renderPage(); });
+          sizeSel.addEventListener('change', e=>{
+            pageSize = parseInt(e.target.value,10) || 0; // 0 = All
+            page = 1;
+            setLockScroll();
+            renderPage();
+          });
           prevBtn.addEventListener('click', ()=>{ page--; renderPage(); });
           nextBtn.addEventListener('click', ()=>{ page++; renderPage(); });
 
@@ -779,13 +815,14 @@
           });
 
           /* -------------------------------- */
+          setLockScroll();   /* ensure correct mode on load */
           renderPage();
 
           /* ---- Auto-resize messaging to parent (iframe) ---- */
           function sendHeightToParent() {
             try {
-            const height = document.getElementById("dw-fg")?.offsetHeight || document.body.scrollHeight;
-            window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+              const height = document.getElementById("dw-fg")?.offsetHeight || document.body.scrollHeight;
+              window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
             } catch (e) {}
           }
           window.addEventListener("load", sendHeightToParent);
