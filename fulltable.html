@@ -1,0 +1,816 @@
+<section id="friendsgiving-table">
+  <!-- Datawrapper-style table (Action Network green + mint theme) -->
+  <div id="dw-fg" data-dw="table"
+       style="--logo-h:34px;
+              --stripe:#DCF2EB;
+              --hover:#BCE5D6;
+              --header-bg:#56C257;
+              --header-fg:#ffffff;
+              --scroll-track:#f7f8fb; 
+              --scroll-thumb:#56C257; 
+              --scroll-thumb-hover:#3FA94B;
+              --gutter: clamp(8px, 4vw, 14px);
+              --gutter-left: 0;
+              --gutter-right: 0; 
+              --edge-pad: 14px;
+              --table-max-h: 560px;
+              --vbar-w: 6px; --vbar-w-hover: 8px;">
+    <style>
+      /* Guard: scope box-sizing to this block only */
+      #friendsgiving-table, #friendsgiving-table * { box-sizing: border-box; }
+
+      /* ===== Datawrapper-style table (Action Network Green + Mint) ===== */
+ /* ===== Premium wrapper + brand variables ===== */
+#dw-fg{
+  /* Brand palette */
+  --brand-50:#F6FFF9; 
+  --brand-100:#DCF2EB;
+  --brand-500:#56C257; 
+  --brand-600:#3FA94B; 
+  --brand-700:#2E8538; 
+  --brand-900:#1F5D28;
+
+  --bg:#ffffff;
+  --text:#1f2937;
+
+  /* Premium elevated wrapper for the full table */
+  background:#F3FBF7;
+  border-radius:16px;
+  padding:1px 7px 0;
+  border:1px solid #E7F4EB;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.05),
+    0 2px 6px rgba(0,0,0,0.06);
+
+  /* Keep core layout behaviour */
+  box-sizing:border-box;
+  overflow-x:hidden;
+  display:block;
+  max-width:100%;
+}
+
+
+      /* Controls layout */
+      #dw-fg .dw-controls{
+        display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+        gap:12px; margin:2px 0 10px 0;
+      }
+      #dw-fg .left{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-start}
+      #dw-fg .center{justify-self:center; display:flex; align-items:center}
+      #dw-fg .right{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+
+      #dw-fg .dw-field{position:relative}
+      #dw-fg .dw-input,#dw-fg .dw-select,#dw-fg .dw-btn{
+        font:14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; border-radius:10px; padding:8px 10px; transition:.15s ease;
+      }
+      #dw-fg .dw-input,#dw-fg .dw-select{
+        background:#fff;
+        border:1px solid var(--brand-700);
+        color:var(--text); box-shadow:inset 0 1px 2px rgba(16,24,40,.04);
+      }
+      #dw-fg .dw-input{width:min(320px,100%); padding-right:36px}
+      #dw-fg .dw-input::placeholder{color:#9AA4B2}
+      #dw-fg .dw-input:focus,#dw-fg .dw-select:focus{
+        outline:none; border-color:var(--brand-500);
+        box-shadow:0 0 0 3px color-mix(in oklab,var(--brand-500) 25%,transparent); background:#fff;
+      }
+      #dw-fg .dw-select{
+        appearance:none; padding-right:34px;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232E8538' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat:no-repeat; background-position:right 10px center; background-size:14px;
+      }
+      #dw-fg .dw-btn{background:var(--brand-500); color:#fff; border:1px solid var(--brand-500); padding-inline:12px; cursor:pointer}
+      #dw-fg .dw-btn:hover{background:var(--brand-600); border-color:var(--brand-600)} 
+      #dw-fg .dw-btn:active{transform:translateY(1px)}
+      #dw-fg .dw-btn[disabled]{background:#fafafa; border-color:#d1d5db; color:#6b7280; opacity:1; cursor:not-allowed; transform:none}
+      #dw-fg .dw-status{font:12px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; color:#6b7280}
+      #dw-fg .dw-counter{display:none !important;}
+
+      /* Clear button */
+      #dw-fg .dw-clear{
+        position:absolute; right:10px; top:50%; translate:0 -50%; width:22px; height:22px; border-radius:9999px; border:0;
+        background:transparent; color:var(--brand-700); cursor:pointer; display:none; align-items:center; justify-content:center;
+      }
+      #dw-fg .dw-field.has-value .dw-clear{display:flex}
+      #dw-fg .dw-clear:hover{background:var(--brand-100)}
+
+      /* === Top-centre logo (mask + fallback) ======================= */
+      #dw-fg .dw-top-brand{
+        display:flex; align-items:center; justify-content:center;
+      }
+      #dw-fg .dw-top-logo{
+        display:block;
+        height: clamp(18px, 4.2vw, 28px);
+        width: clamp(120px, 16vw, 220px);
+        background: var(--header-bg);
+        -webkit-mask: var(--logo-url) no-repeat center / contain;
+                mask: var(--logo-url) no-repeat center / contain;
+      }
+      #dw-fg .dw-top-logo-img{
+        display:block;
+        height: clamp(18px, 4.2vw, 28px);
+        width:auto;
+        filter:
+          brightness(0) saturate(100%)
+          invert(62%) sepia(23%) saturate(1250%) hue-rotate(78deg)
+          brightness(96%) contrast(92%);
+        image-rendering:-webkit-optimize-contrast;
+      }
+      #dw-fg .dw-top-logo { display: none; }
+      #dw-fg .dw-top-logo-img { display: block; }
+      #dw-fg.logo-mask-ok .dw-top-logo { display: block; }
+      #dw-fg.logo-mask-ok .dw-top-logo-img { display: none; }
+      @supports not (-webkit-mask: url("")){
+        #dw-fg .dw-top-logo{ display:none; }
+        #dw-fg .dw-top-logo-img{ display:block; }
+      }
+
+      /* Card & table */
+      #dw-fg .dw-card { background: var(--bg); border: 0; box-shadow: none; overflow: hidden; margin: 0; width: 100%; }
+      #dw-fg .dw-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+      #dw-fg .dw-scroll.no-scroll { overflow-x: hidden !important; }
+      #dw-fg table.dw-table{
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+        background: transparent;
+        min-width: 980px;
+        table-layout: auto;
+      }
+
+      /* Header */
+     /* Clean solid Action Network green header */
+#dw-fg thead th{
+  background: var(--brand-600) !important;
+  color:#ffffff !important;
+  font-weight:700;
+  text-align:center;
+  padding:14px 14px;
+  white-space:nowrap;
+  vertical-align:middle;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 2px 4px rgba(0,0,0,0.08);
+  transition:background-color .15s, color .15s;
+}
+
+      #dw-fg thead th.sortable{cursor:pointer; user-select:none}
+      #dw-fg thead th.sortable::after{content:"↕"; font-size:12px; opacity:.75; margin-left:8px; color:var(--header-fg,#fff)}
+      #dw-fg thead th.sortable[data-sort="asc"]::after{content:"▲"}
+      #dw-fg thead th.sortable[data-sort="desc"]::after{content:"▼"}
+      #dw-fg thead th.sortable:hover,#dw-fg thead th.sortable:focus-visible{background:var(--brand-600); color:#fff; box-shadow:inset 0 -3px 0 var(--brand-100)}
+      #dw-fg .dw-scroll.scrolled thead th{box-shadow:0 6px 10px -6px rgba(0,0,0,.25)}
+      #dw-fg thead th.is-sorted{background:var(--brand-700); color:#fff; box-shadow:inset 0 -3px 0 var(--brand-100)}
+
+      #dw-fg thead th, #dw-fg tbody td { padding:12px 10px; overflow:hidden; }
+      #dw-fg thead th { white-space:nowrap; }
+      /* City column wrap */
+      #dw-fg tbody td:nth-child(2){
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: keep-all;
+        min-width: 160px;
+        max-width: 320px;
+        line-height: 1.25;
+      }
+
+      /* Body */
+      #dw-fg tbody td{ text-align:center; vertical-align:middle; background:transparent!important; border:0; transition:background-color .12s }
+      #dw-fg thead th:last-child,#dw-fg tbody td:last-child{padding-right:14px}
+      #dw-fg tbody tr:nth-child(odd){background:var(--stripe,#DCF2EB)}
+      #dw-fg tbody tr:hover{background:var(--hover,#BCE5D6); box-shadow:inset 3px 0 0 var(--brand-500)}
+      #dw-fg thead th{position:sticky; top:var(--sticky-top,0); z-index:5}
+
+      /* Scrollbar + height */
+      #dw-fg .dw-scroll{max-height:var(--table-max-h,560px); overflow-y:auto; -ms-overflow-style:auto; scrollbar-width:thin; scrollbar-color:var(--scroll-thumb) transparent}
+      #dw-fg .dw-scroll::-webkit-scrollbar:horizontal{height:0; display:none}
+      #dw-fg .dw-scroll::-webkit-scrollbar:vertical{width:var(--vbar-w)}
+      #dw-fg .dw-scroll:hover::-webkit-scrollbar:vertical{width:var(--vbar-w-hover)}
+      #dw-fg .dw-scroll::-webkit-scrollbar-thumb{background:var(--scroll-thumb); border-radius:9999px; border:2px solid transparent; background-clip:content-box}
+
+      /* Dynamic zebra */
+      #dw-fg tbody tr{background:transparent!important}
+      #dw-fg tbody tr.dw-zebra{background:var(--stripe,#DCF2EB)!important}
+      #dw-fg tbody td.is-sorted{background:var(--hover,#BCE5D6)!important; font-weight:600}
+
+      /* Empty-state row */
+      #dw-fg tr.dw-empty td{text-align:center; color:#6b7280; font-style:italic; padding:18px 14px; background:linear-gradient(0deg,#fff,var(--brand-50))}
+
+      /* ===== Supermoon-style Footer with centered embed ===== */
+      #dw-fg .dw-footer{
+        position: relative;
+        display:block;
+        padding:10px 12px 14px;
+        margin-top:12px;
+        border-top:1px solid #DCEFE6;
+        background:
+          radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
+          linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
+        color:#fff;
+        overflow:visible;
+        border-radius:0 0 12px 12px;
+      }
+      #dw-fg .footer-inner{
+        display:flex; align-items:center; justify-content:center; gap:12px; position:relative;
+      }
+      #dw-fg .dw-embed-btn{
+        background:#56C257; color:#fff; border:1px solid #56C257;
+        padding:8px 14px; border-radius:10px; font:13px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        cursor:pointer; transition:.18s ease;
+      }
+      #dw-fg .dw-embed-btn:hover{ background:#3FA94B; border-color:#3FA94B; }
+      #dw-fg .dw-embed-confirmation{ display:none; font-size:13px; margin-left:8px; }
+      #dw-fg .dw-embed-confirmation.show{ display:inline; }
+
+      /* Popup panel (centered above footer) */
+      #dw-fg .embed-wrapper{
+        position:absolute; left:50%; transform:translateX(-50%);
+        bottom: calc(100% + 10px);
+        width: min(680px, calc(100% - 24px));
+        display:none; padding:16px 20px; background:#fff; color:#111; border:1px solid #ccc; border-radius:12px;
+        box-shadow:0 12px 28px rgba(0,0,0,.18); z-index:1000;
+      }
+      #dw-fg .embed-wrapper::after{
+        content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-8px;
+        border:8px solid transparent; border-top-color:#fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.08));
+      }
+      #dw-fg .embed-wrapper textarea{
+        width:100%; height:150px; font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+        color:#111; background:#fff; padding:10px 12px; border:1px solid #ddd; border-radius:8px; resize:none;
+      }
+      #dw-fg #copy-status{ display:none; color:#0a7a0a; font-size:13px; margin-top:6px; }
+
+      /* Footer brand on left (optional, hidden by default) */
+      #dw-fg .dw-brand-left{
+        display:none; color:inherit; text-decoration:none; font-weight:600;
+        border-bottom:1px dashed transparent; transition:color .15s, border-color .15s;
+      }
+      #dw-fg .dw-brand-left:is(:hover,:focus-visible){color:var(--brand-100); border-color:var(--brand-100); outline:none}
+
+      /* Responsiveness */
+      #dw-fg .dw-controls{
+        grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+        column-gap: 12px;
+      }
+      #dw-fg .left, #dw-fg .center, #dw-fg .right { min-width: 0; }
+      #dw-fg .left, #dw-fg .right { flex-wrap: nowrap; }
+      #dw-fg .right { white-space: nowrap; gap: 8px; }
+      #dw-fg .dw-input { width: clamp(160px, 26vw, 320px); }
+      #dw-fg .dw-select { min-width: 68px; }
+      #dw-fg .dw-btn { padding-inline: 8px; }
+
+      @media (min-width:601px) and (max-width:980px){
+        #dw-fg .right > .dw-status{display:inline; font-size:0;}
+        #dw-fg .right > .dw-status::after{content:"Rows"; font-size:12px;}
+        #dw-fg .dw-input { width: clamp(150px, 22vw, 260px); }
+      }
+      @media (min-width:981px){
+        #dw-fg .dw-top-logo,
+        #dw-fg .dw-top-logo-img { height: 24px; width: auto; }
+      }
+      @media (max-width: 600px){
+        #dw-fg .dw-controls{
+          display:grid;
+          grid-template-columns:minmax(0,1fr) auto auto;
+          align-items:center; column-gap:8px; row-gap:0; margin:6px 0 8px;
+        }
+        #dw-fg .dw-field{width:100%; max-width:46vw;}
+        #dw-fg .dw-input{width:100%; padding:6px 24px 6px 10px; height:34px; font-size:13px;}
+        #dw-fg .dw-clear{width:20px; height:20px;}
+        #dw-fg thead th{ font-size:13px; line-height:1.2; }
+        #dw-fg .dw-top-logo,
+        #dw-fg .dw-top-logo-img{ height:18px; width:120px; }
+        #dw-fg .right{justify-content:flex-end; gap:6px;}
+        #dw-fg .right .dw-status{display:none;}
+        #dw-fg .dw-select{min-width:68px; height:32px; padding:6px 22px 6px 8px; font-size:13px;}
+        #dw-fg .dw-btn{width:32px; height:32px; padding:0; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
+        #dw-fg .embed-wrapper{ width: calc(100% - 16px); }
+      }
+      
+    </style>
+
+    <!-- Controls -->
+    <div class="dw-controls">
+      <div class="left">
+        <div class="dw-field">
+          <input type="search" class="dw-input" placeholder="Search city…" aria-label="Search table">
+          <button type="button" class="dw-clear" aria-label="Clear search">×</button>
+        </div>
+        <span class="dw-status dw-counter" aria-live="polite"></span>
+      </div>
+
+      <!-- Center: NOT clickable logo -->
+      <div class="center">
+        <div class="dw-top-brand" aria-label="Brand">
+          <div class="dw-top-logo" aria-hidden="true"></div>
+          <img class="dw-top-logo-img"
+               src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
+               alt="The Action Network logo" loading="lazy">
+        </div>
+      </div>
+         
+      <div class="right">
+        <label class="dw-status" for="fg-size" style="margin-right:4px;">Rows/page</label>
+        <select id="fg-size" class="dw-select">
+          <option value="10" selected>10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="0">All</option>
+        </select>
+        <button class="dw-btn" data-page="prev" aria-label="Previous page">‹</button>
+        <button class="dw-btn" data-page="next" aria-label="Next page">›</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="dw-card">
+      <div class="dw-scroll">
+        <table class="dw-table">
+          <thead>
+            <tr>
+              <th scope="col" data-type="num">Rank</th>
+              <th scope="col" data-type="text">City</th>
+              <th scope="col" data-type="num">Sports Access Score</th>
+              <th scope="col" data-type="num">Affordability Score</th>
+              <th scope="col" data-type="num">Atmosphere Score</th>
+              <th scope="col" data-type="num">Friendsgiving Football Index (0–100)</th>
+            </tr>
+          </thead>
+          <tbody id="fg-tbody">
+            <!-- rows injected by script -->
+            <tr class="dw-empty" style="display:none;"><td colspan="6">No matches found.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dw-footer" role="contentinfo">
+      <a class="dw-brand-left" href="#" aria-label="Brand name"></a>
+
+      <div class="footer-inner">
+        <button class="dw-embed-btn" id="fg-embed-btn" aria-controls="fg-embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
+        <span class="dw-embed-confirmation" aria-hidden="true" id="fg-embed-status">Embed code copied!</span>
+      </div>
+
+      <!-- Popup with code -->
+      <div id="fg-embed-wrapper" class="embed-wrapper" role="dialog" aria-modal="false" aria-labelledby="fg-embed-title">
+        <textarea id="fg-embed-code" readonly>&lt;iframe 
+  src="https://gauthambc.github.io/ANFriendsgivingFootballIndex/fulltable.html"
+  title="Friendsgiving Football Watch Party Index — Full Table"
+  width="100%" height="750"
+  scrolling="no"
+  style="border:0;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+        <p id="copy-status">Embed code copied!</p>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        const root = document.getElementById('dw-fg');
+        if (!root || root.dataset.dwInit === '1') return;
+
+        function DWTableInit(root){
+          root.dataset.dwInit='1';
+
+          /* ---------- DATA ---------- */
+          const DATA = [
+            {rank:1,   city:"Green Bay, WI",         sports:72.34, affordability:74.04, atmosphere:26.69, index:61.52},
+            {rank:2,   city:"Houston, TX",           sports:50.58, affordability:55.97, atmosphere:68.42, index:56.93},
+            {rank:3,   city:"Cleveland, OH",         sports:60.25, affordability:61.23, atmosphere:27.18, index:52.32},
+            {rank:4,   city:"Baltimore, MD",         sports:54.81, affordability:52.23, atmosphere:48.42, index:52.31},
+            {rank:5,   city:"Pittsburgh, PA",        sports:56.34, affordability:65.57, atmosphere:26.85, index:52.20},
+            {rank:6,   city:"Cincinnati, OH",        sports:56.98, affordability:62.10, atmosphere:29.08, index:51.80},
+            {rank:7,   city:"Jacksonville, FL",      sports:50.80, affordability:57.36, atmosphere:44.24, index:51.46},
+            {rank:8,   city:"Atlanta, GA",           sports:52.54, affordability:48.69, atmosphere:49.51, index:50.44},
+            {rank:9,   city:"Indianapolis, IN",      sports:52.34, affordability:57.83, atmosphere:36.25, index:50.24},
+            {rank:10,  city:"Philadelphia, PA",      sports:51.48, affordability:49.45, atmosphere:48.94, index:50.13},
+            {rank:11,  city:"Miami Gardens, FL",     sports:30.04, affordability:63.74, atmosphere:60.67, index:49.49},
+            {rank:12,  city:"Tampa, FL",             sports:53.47, affordability:48.43, atmosphere:44.41, index:49.44},
+            {rank:13,  city:"Kansas City, MO",       sports:56.00, affordability:52.56, atmosphere:33.64, index:49.21},
+            {rank:14,  city:"Charlotte, NC",         sports:51.22, affordability:52.52, atmosphere:38.36, index:48.46},
+            {rank:15,  city:"Chicago, IL",           sports:50.89, affordability:42.37, atmosphere:51.77, index:48.13},
+            {rank:16,  city:"New Orleans, LA",       sports:56.81, affordability:40.30, atmosphere:42.89, index:47.55},
+            {rank:17,  city:"Minneapolis, MN",       sports:55.40, affordability:51.16, atmosphere:28.63, index:47.22},
+            {rank:18,  city:"Denver, CO",            sports:52.36, affordability:43.26, atmosphere:41.77, index:46.53},
+            {rank:19,  city:"Detroit, MI",           sports:54.70, affordability:50.21, atmosphere:27.33, index:46.29},
+            {rank:20,  city:"Nashville, TN",         sports:53.86, affordability:47.63, atmosphere:31.18, index:46.01},
+            {rank:21,  city:"Stanford, CA",          sports:50.00, affordability:49.60, atmosphere:33.26, index:45.67},
+            {rank:22,  city:"Arlington, TX",         sports:30.34, affordability:66.95, atmosphere:40.21, index:45.62},
+            {rank:23,  city:"Paradise, NV",          sports:32.58, affordability:65.26, atmosphere:37.86, index:45.34},
+            {rank:24,  city:"Coral Gables, FL",      sports:12.21, affordability:70.11, atmosphere:59.47, index:44.29},
+            {rank:25,  city:"Glendale, AZ",          sports:32.39, affordability:56.33, atmosphere:41.13, index:42.96},
+            {rank:26,  city:"Morgantown, WV",        sports:28.84, affordability:73.55, atmosphere:20.28, index:42.35},
+            {rank:27,  city:"Inglewood, CA",         sports:28.89, affordability:61.44, atmosphere:36.95, index:42.30},
+            {rank:28,  city:"Bowling Green, OH",     sports:12.91, affordability:90.64, atmosphere:21.60, index:42.29},
+            {rank:29,  city:"Greenville, NC",        sports:7.11,  affordability:86.65, atmosphere:30.60, index:40.82},
+            {rank:30,  city:"Kalamazoo, MI",         sports:18.16, affordability:76.82, atmosphere:21.29, index:39.47},
+            {rank:31,  city:"East Lansing, MI",      sports:28.63, affordability:63.50, atmosphere:22.32, index:39.25},
+            {rank:32,  city:"College Station, TX",   sports:6.20,  affordability:74.88, atmosphere:40.88, index:38.91},
+            {rank:33,  city:"Mount Pleasant, MI",    sports:18.09, affordability:74.56, atmosphere:21.04, index:38.59},
+            {rank:34,  city:"Seattle, WA",           sports:51.66, affordability:30.54, atmosphere:27.74, index:38.29},
+            {rank:35,  city:"Jonesboro, AR",         sports:3.18,  affordability:82.17, atmosphere:30.33, index:37.62},
+            {rank:36,  city:"Kent, OH",              sports:24.58, affordability:64.66, atmosphere:20.30, index:37.54},
+            {rank:37,  city:"Auburn, AL",            sports:7.34,  affordability:73.89, atmosphere:34.00, index:37.30},
+            {rank:38,  city:"Athens, OH",            sports:17.04, affordability:69.18, atmosphere:23.98, index:37.02},
+            {rank:39,  city:"San Antonio, TX",       sports:0.94,  affordability:66.11, atmosphere:52.60, index:36.67},
+            {rank:40,  city:"Boone, NC",             sports:17.37, affordability:69.13, atmosphere:21.83, index:36.60},
+            {rank:41,  city:"East Rutherford, NJ",   sports:31.76, affordability:45.91, atmosphere:30.50, index:36.40},
+            {rank:42,  city:"Starkville, MS",        sports:4.27,  affordability:76.45, atmosphere:31.54, index:36.35},
+            {rank:43,  city:"Manhattan, KS",         sports:8.03,  affordability:74.06, atmosphere:28.76, index:36.32},
+            {rank:44,  city:"Muncie, IN",            sports:3.25,  affordability:82.54, atmosphere:24.54, index:36.32},
+            {rank:45,  city:"Kennesaw, GA",          sports:9.97,  affordability:70.02, atmosphere:31.23, index:36.30},
+            {rank:46,  city:"Lynchburg, VA",         sports:8.20,  affordability:75.65, atmosphere:24.95, index:36.00},
+            {rank:47,  city:"Logan, UT",             sports:1.30,  affordability:87.36, atmosphere:18.58, index:35.74},
+            {rank:48,  city:"Baton Rouge, LA",       sports:10.90, affordability:62.28, atmosphere:38.14, index:35.69},
+            {rank:49,  city:"Springfield, MO",       sports:6.13,  affordability:74.36, atmosphere:28.61, index:35.63},
+            {rank:50,  city:"Oxford, MS",            sports:12.21, affordability:65.80, atmosphere:30.77, index:35.61},
+            {rank:51,  city:"Conway, SC",            sports:4.00,  affordability:72.58, atmosphere:33.30, index:35.33},
+            {rank:52,  city:"Stillwater, OK",        sports:5.01,  affordability:72.54, atmosphere:31.31, index:35.22},
+            {rank:53,  city:"Orlando, FL",           sports:7.67,  affordability:56.81, atmosphere:48.88, index:35.17},
+            {rank:54,  city:"Santa Clara, CA",       sports:28.62, affordability:42.51, atmosphere:35.31, index:35.15},
+            {rank:55,  city:"Laramie, WY",           sports:14.56, affordability:65.76, atmosphere:23.41, index:34.69},
+            {rank:56,  city:"Murfreesboro, TN",      sports:3.52,  affordability:75.58, atmosphere:26.52, index:34.49},
+            {rank:57,  city:"Ames, IA",              sports:4.60,  affordability:75.75, atmosphere:24.46, index:34.47},
+            {rank:58,  city:"Clemson, SC",           sports:4.43,  affordability:71.96, atmosphere:29.75, index:34.39},
+            {rank:59,  city:"Fayetteville, AR",      sports:5.09,  affordability:70.78, atmosphere:30.11, index:34.34},
+            {rank:60,  city:"Fort Worth, TX",        sports:2.39,  affordability:63.16, atmosphere:44.98, index:34.31},
+            {rank:61,  city:"Piscataway, NJ",        sports:13.77, affordability:59.10, atmosphere:32.02, index:34.20},
+            {rank:62,  city:"Waco, TX",              sports:5.89,  affordability:63.53, atmosphere:38.30, index:34.17},
+            {rank:63,  city:"Mobile, AL",            sports:6.02,  affordability:64.30, atmosphere:36.53, index:34.04},
+            {rank:64,  city:"Las Cruces, NM",        sports:0.72,  affordability:70.31, atmosphere:36.17, index:33.94},
+            {rank:65,  city:"Columbia, MO",          sports:4.53,  affordability:71.31, atmosphere:28.45, index:33.88},
+            {rank:66,  city:"Austin, TX",            sports:1.12,  affordability:57.03, atmosphere:53.46, index:33.77},
+            {rank:67,  city:"Columbia, SC",          sports:5.62,  affordability:65.13, atmosphere:34.76, index:33.73},
+            {rank:68,  city:"Ypsilanti, MI",         sports:29.37, affordability:47.10, atmosphere:21.63, index:33.64},
+            {rank:69,  city:"Gainesville, FL",       sports:5.17,  affordability:61.37, atmosphere:40.34, index:33.63},
+            {rank:70,  city:"Denton, TX",            sports:4.61,  affordability:62.61, atmosphere:37.61, index:33.16},
+            {rank:71,  city:"West Lafayette, IN",    sports:4.11,  affordability:71.71, atmosphere:25.62, index:33.15},
+            {rank:72,  city:"Las Vegas, NV",         sports:3.11,  affordability:56.55, atmosphere:48.13, index:33.07},
+            {rank:73,  city:"Lincoln, NE",           sports:3.71,  affordability:69.37, atmosphere:28.82, index:32.97},
+            {rank:74,  city:"Bowling Green, KY",     sports:3.30,  affordability:74.14, atmosphere:21.22, index:32.57},
+            {rank:75,  city:"Boca Raton, FL",        sports:3.98,  affordability:44.80, atmosphere:61.18, index:32.57},
+            {rank:76,  city:"Huntington, WV",        sports:19.99, affordability:56.01, atmosphere:19.83, index:32.56},
+            {rank:77,  city:"Norman, OK",            sports:6.70,  affordability:61.49, atmosphere:33.40, index:32.55},
+            {rank:78,  city:"Tallahassee, FL",       sports:4.42,  affordability:60.53, atmosphere:37.96, index:32.44},
+            {rank:79,  city:"El Paso, TX",           sports:2.32,  affordability:60.89, atmosphere:39.85, index:32.20},
+            {rank:80,  city:"Champaign, IL",         sports:6.02,  affordability:67.39, atmosphere:24.67, index:32.16},
+            {rank:81,  city:"Birmingham, AL",        sports:12.41, affordability:53.74, atmosphere:33.43, index:32.13},
+            {rank:82,  city:"Tuscaloosa, AL",        sports:4.81,  affordability:62.87, atmosphere:32.77, index:32.12},
+            {rank:83,  city:"Hattiesburg, MS",       sports:4.27,  affordability:60.78, atmosphere:35.76, index:31.92},
+            {rank:84,  city:"Chapel Hill, NC",       sports:15.48, affordability:53.58, atmosphere:27.72, index:31.88},
+            {rank:85,  city:"Lubbock, TX",           sports:6.09,  affordability:57.50, atmosphere:37.14, index:31.85},
+            {rank:86,  city:"Tulsa, OK",             sports:4.56,  affordability:61.21, atmosphere:34.25, index:31.81},
+            {rank:87,  city:"Bloomington, IN",       sports:4.13,  affordability:66.65, atmosphere:26.22, index:31.53},
+            {rank:88,  city:"Iowa City, IA",         sports:7.37,  affordability:63.87, atmosphere:24.32, index:31.38},
+            {rank:89,  city:"Statesboro, GA",        sports:2.04,  affordability:61.79, atmosphere:35.75, index:31.38},
+            {rank:90,  city:"Akron, OH",             sports:7.47,  affordability:64.56, atmosphere:22.65, index:31.25},
+            {rank:91,  city:"Lafayette, LA",         sports:6.61,  affordability:55.26, atmosphere:36.67, index:31.15},
+            {rank:92,  city:"Tempe, AZ",             sports:6.82,  affordability:51.38, atmosphere:41.75, index:31.15},
+            {rank:93,  city:"Provo, UT",             sports:0.61,  affordability:68.13, atmosphere:27.42, index:30.95},
+            {rank:94,  city:"Lexington, KY",         sports:2.77,  affordability:67.81, atmosphere:23.98, index:30.84},
+            {rank:95,  city:"Charlottesville, VA",   sports:25.76, affordability:38.25, atmosphere:27.78, index:30.64},
+            {rank:96,  city:"Albuquerque, NM",       sports:1.87,  affordability:60.19, atmosphere:34.72, index:30.49},
+            {rank:97,  city:"Dallas, TX",            sports:2.23,  affordability:47.44, atmosphere:51.70, index:30.42},
+            {rank:98,  city:"Annapolis, MD",         sports:8.33,  affordability:57.31, atmosphere:27.84, index:30.35},
+            {rank:99,  city:"Raleigh, NC",           sports:4.01,  affordability:58.31, atmosphere:32.96, index:30.26},
+            {rank:100, city:"College Park, MD",      sports:3.58,  affordability:60.23, atmosphere:28.66, index:29.68},
+            {rank:101, city:"Tucson, AZ",            sports:3.27,  affordability:50.54, atmosphere:42.51, index:29.63},
+            {rank:102, city:"Boise, ID",             sports:6.01,  affordability:57.77, atmosphere:27.75, index:29.56},
+            {rank:103, city:"Lawrence, KS",          sports:6.04,  affordability:58.42, atmosphere:26.58, index:29.51},
+            {rank:104, city:"Buffalo, NY",           sports:4.70,  affordability:60.69, atmosphere:25.15, index:29.41},
+            {rank:105, city:"Blacksburg, VA",        sports:4.19,  affordability:61.41, atmosphere:24.53, index:29.31},
+            {rank:106, city:"Los Angeles, CA",       sports:0.00,  affordability:29.55, atmosphere:75.85, index:29.30},
+            {rank:107, city:"Toledo, OH",            sports:5.30,  affordability:62.05, atmosphere:21.72, index:29.27},
+            {rank:108, city:"State College, PA",     sports:7.79,  affordability:60.23, atmosphere:20.10, index:29.22},
+            {rank:109, city:"San Marcos, TX",        sports:1.47,  affordability:53.25, atmosphere:39.54, index:29.11},
+            {rank:110, city:"Fort Collins, CO",      sports:5.75,  affordability:55.72, atmosphere:29.01, index:29.05},
+            {rank:111, city:"Ann Arbor, MI",         sports:4.79,  affordability:59.28, atmosphere:23.74, index:28.60},
+            {rank:112, city:"Evanston, IL",          sports:10.21, affordability:51.20, atmosphere:25.71, index:28.43},
+            {rank:113, city:"Miami, FL",             sports:2.78,  affordability:24.61, atmosphere:73.84, index:28.18},
+            {rank:114, city:"South Bend, IN",        sports:6.08,  affordability:57.49, atmosphere:22.13, index:28.09},
+            {rank:115, city:"Memphis, TN",           sports:2.64,  affordability:51.56, atmosphere:34.94, index:27.84},
+            {rank:116, city:"Norfolk, VA",           sports:9.79,  affordability:52.68, atmosphere:21.70, index:27.78},
+            {rank:117, city:"Louisville, KY",        sports:2.11,  affordability:57.04, atmosphere:27.77, index:27.75},
+            {rank:118, city:"Berkeley, CA",          sports:4.08,  affordability:50.74, atmosphere:32.14, index:27.42},
+            {rank:119, city:"San Diego, CA",         sports:0.73,  affordability:40.12, atmosphere:51.64, index:27.24},
+            {rank:120, city:"Harrisonburg, VA",      sports:6.82,  affordability:51.13, atmosphere:25.78, index:27.07},
+            {rank:121, city:"Knoxville, TN",         sports:6.16,  affordability:52.04, atmosphere:24.51, index:26.80},
+            {rank:122, city:"Colorado Springs, CO",  sports:4.44,  affordability:48.75, atmosphere:30.74, index:26.53},
+            {rank:123, city:"Boulder, CO",           sports:5.92,  affordability:47.25, atmosphere:30.14, index:26.44},
+            {rank:124, city:"Amherst, MA",           sports:2.95,  affordability:55.65, atmosphere:23.08, index:26.43},
+            {rank:125, city:"Madison, WI",           sports:4.32,  affordability:52.78, atmosphere:24.69, index:26.37},
+            {rank:126, city:"Columbus, OH",          sports:2.46,  affordability:48.89, atmosphere:33.09, index:26.37},
+            {rank:127, city:"Pullman, WA",           sports:10.93, affordability:52.12, atmosphere:14.04, index:26.12},
+            {rank:128, city:"Salt Lake City, UT",    sports:2.87,  affordability:51.59, atmosphere:27.53, index:26.09},
+            {rank:129, city:"Corvallis, OR",         sports:4.41,  affordability:63.40, atmosphere:5.52,  index:25.33},
+            {rank:130, city:"Athens, GA",            sports:4.65,  affordability:42.52, atmosphere:34.16, index:25.28},
+            {rank:131, city:"Durham, NC",            sports:5.05,  affordability:45.52, atmosphere:28.51, index:25.08},
+            {rank:132, city:"Fresno, CA",            sports:0.70,  affordability:43.87, atmosphere:36.85, index:24.85},
+            {rank:133, city:"Winston-Salem, NC",     sports:6.63,  affordability:41.66, atmosphere:27.25, index:24.04},
+            {rank:134, city:"Eugene, OR",            sports:2.92,  affordability:50.79, atmosphere:14.51, index:22.57},
+            {rank:135, city:"San Jose, CA",          sports:1.23,  affordability:30.07, atmosphere:45.41, index:22.37},
+            {rank:136, city:"Reno, NV",              sports:6.40,  affordability:36.59, atmosphere:27.55, index:22.26},
+            {rank:137, city:"Syracuse, NY",          sports:4.69,  affordability:39.86, atmosphere:21.02, index:21.08},
+            {rank:138, city:"Honolulu, HI",          sports:2.50,  affordability:20.37, atmosphere:43.42, index:18.99}
+          ];
+
+          const table = root.querySelector('table.dw-table');
+          const tb = document.getElementById('fg-tbody');
+          const scroller = root.querySelector('.dw-scroll');
+          const controls = root.querySelector('.dw-controls');
+          if(!table || !tb || !scroller || !controls) return;
+
+          // Populate rows
+          const frag = document.createDocumentFragment();
+          DATA.forEach(d=>{
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${d.rank}</td>
+              <td>${d.city}</td>
+              <td>${d.sports.toFixed(2)}</td>
+              <td>${d.affordability.toFixed(2)}</td>
+              <td>${d.atmosphere.toFixed(2)}</td>
+              <td>${d.index.toFixed(2)}</td>
+            `;
+            frag.appendChild(tr);
+          });
+          const emptyRow = tb.querySelector('.dw-empty');
+          if (emptyRow) tb.insertBefore(frag, emptyRow); else tb.appendChild(frag);
+
+          // Disable horizontal scrolling if few cols
+          if (table.tHead && table.tHead.rows[0].cells.length <= 4) {
+            scroller.classList.add('no-scroll');
+          }
+
+          const field = controls.querySelector('.dw-field');
+          const searchInput = controls.querySelector('.dw-input');
+          const clearBtn = controls.querySelector('.dw-clear');
+          const statusEl = controls.querySelector('.dw-counter'); // hidden
+          const sizeSel = controls.querySelector('#fg-size');
+          const prevBtn = controls.querySelector('[data-page="prev"]');
+          const nextBtn = controls.querySelector('[data-page="next"]');
+
+          /* record original order for "unsort" */
+          Array.from(tb.rows).forEach((r,i)=>{ if(!r.classList.contains('dw-empty')) r.dataset.idx=i; });
+
+          let pageSize = parseInt(sizeSel.value,10) || 10;  // 0 = All
+          let page = 1;
+          let filter = '';
+
+          /* header shadow while scrolled */
+          const onScrollShadow = ()=> scroller.classList.toggle('scrolled', scroller.scrollTop > 0);
+          scroller.addEventListener('scroll', onScrollShadow); onScrollShadow();
+
+          /* tri-state sorting */
+          const heads = Array.from(table.tHead.rows[0].cells);
+          heads.forEach((th,i)=>{
+            th.classList.add('sortable'); th.setAttribute('aria-sort','none'); th.dataset.sort='none'; th.tabIndex=0;
+            const type = th.dataset.type || 'text';
+            const go = ()=> sortBy(i,type,th);
+            th.addEventListener('click',go);
+            th.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+          });
+
+          function textOf(tr,i){ return (tr.children[i].innerText||'').trim(); }
+          function clearSortedClasses(){
+            heads.forEach(h=>h.classList.remove('is-sorted'));
+            Array.from(tb.rows).forEach(r=>Array.from(r.cells).forEach(c=>c.classList.remove('is-sorted')));
+          }
+          function markSortedColumn(colIdx){
+            heads[colIdx]?.classList.add('is-sorted');
+            Array.from(tb.rows).forEach(r=>{ const c=r.cells[colIdx]; if(c) c.classList.add('is-sorted'); });
+          }
+
+          function sortBy(colIdx, type, th){
+            const rows = Array.from(tb.rows).filter(r=>!r.classList.contains('dw-empty'));
+            const current = th.dataset.sort || 'none';
+            const next = current==='none' ? 'asc' : current==='asc' ? 'desc' : 'none';
+
+            heads.forEach(h=>{ h.dataset.sort='none'; h.setAttribute('aria-sort','none'); h.classList.remove('is-sorted'); });
+
+            if(next === 'none'){
+              rows.sort((a,b)=>(+a.dataset.idx)-(+b.dataset.idx));
+              rows.forEach(r=>tb.insertBefore(r, emptyRow));
+              clearSortedClasses();
+              renderPage();
+              return;
+            }
+
+            th.dataset.sort = next;
+            th.setAttribute('aria-sort', next==='asc'?'ascending':'descending');
+
+            const mul = next==='asc'?1:-1;
+            rows.sort((a,b)=>{
+              let v1=textOf(a,colIdx), v2=textOf(b,colIdx);
+              if((type||'text')==='num'){
+                v1=parseFloat((v1+'').replace(/[^0-9.\-]/g,'')); if(isNaN(v1)) v1=-Infinity;
+                v2=parseFloat((v2+'').replace(/[^0-9.\-]/g,'')); if(isNaN(v2)) v2=-Infinity;
+              }else{
+                v1=(v1+'').toLowerCase(); v2=(v2+'').toLowerCase();
+              }
+              if(v1>v2) return 1*mul; if(v1<v2) return -1*mul; return 0;
+            });
+            rows.forEach(r=>tb.insertBefore(r, emptyRow));
+            clearSortedClasses(); markSortedColumn(colIdx);
+            renderPage();
+          }
+
+          /* zebra */
+          function applyZebra(shown){
+            Array.from(tb.rows).forEach(r=>r.classList.remove('dw-zebra'));
+            shown.forEach((r,idx)=>{ if(idx % 2 === 0) r.classList.add('dw-zebra'); });
+          }
+
+          function matchesFilter(tr){
+            if (tr.classList.contains('dw-empty')) return false;
+            const t = tr.innerText.toLowerCase();
+            return t.includes(filter);
+          }
+
+          function renderPage(){
+            const ordered = Array.from(tb.rows).filter(r=>!r.classList.contains('dw-empty'));
+            const visible = ordered.filter(matchesFilter);
+            const total = visible.length;
+
+            ordered.forEach(r=>r.style.display='none');
+            let shown = [];
+
+            if(total===0){
+              if(emptyRow){ emptyRow.style.display='table-row'; emptyRow.firstElementChild.colSpan = heads.length; }
+              if(statusEl) statusEl.textContent = "";
+              prevBtn.disabled = nextBtn.disabled = true;
+            }else{
+              if(emptyRow) emptyRow.style.display='none';
+              if(pageSize===0){
+                shown = visible;
+                if(statusEl) statusEl.textContent = "";
+                prevBtn.disabled = nextBtn.disabled = true;
+              }else{
+                const pages = Math.max(1, Math.ceil(total / pageSize));
+                page = Math.min(Math.max(1, page), pages);
+                const start = (page-1)*pageSize, end = start + pageSize;
+                shown = visible.slice(start,end);
+                if(statusEl) statusEl.textContent = "";
+                prevBtn.disabled = page<=1; nextBtn.disabled = page>=pages;
+              }
+            }
+
+            shown.forEach(r=>r.style.display='table-row');
+            applyZebra(shown);
+          }
+
+          /* search + clear */
+          const syncClearBtn = ()=> field.classList.toggle('has-value', !!searchInput.value);
+          let t=null;
+          searchInput.addEventListener('input', e=>{
+            syncClearBtn();
+            clearTimeout(t);
+            t=setTimeout(()=>{ filter=(e.target.value||'').toLowerCase().trim(); page=1; renderPage(); },120);
+          });
+          clearBtn.addEventListener('click', ()=>{
+            searchInput.value=''; syncClearBtn(); filter=''; page=1; renderPage(); searchInput.focus();
+          });
+          syncClearBtn();
+
+          /* page size + nav */
+          sizeSel.addEventListener('change', e=>{ pageSize = parseInt(e.target.value,10) || 0; page=1; renderPage(); });
+          prevBtn.addEventListener('click', ()=>{ page--; renderPage(); });
+          nextBtn.addEventListener('click', ()=>{ page++; renderPage(); });
+
+          /* ---------- Logo Config ---------- */
+          const LOGO_URL   = "https://i.postimg.cc/x1nG117r/AN-final2-logo.png";
+          const BRAND_NAME = "";
+          const BRAND_HREF = "";
+          
+          const topWrap = root.querySelector('.dw-top-brand');
+          const topLogo = root.querySelector('.dw-top-logo');      // masked version
+          const topImg  = root.querySelector('.dw-top-logo-img');  // <img> fallback
+          
+          if (LOGO_URL) topLogo.style.setProperty('--logo-url', `url("${LOGO_URL}")`);
+          topWrap.style.display = 'flex';
+
+          const supportsMask =
+            (window.CSS && (CSS.supports('mask-image', 'url("")') || CSS.supports('-webkit-mask-image', 'url("")')));
+          const probe = new Image();
+          probe.onload = () => {
+            if (supportsMask) {
+              const color = (getComputedStyle(root).getPropertyValue('--header-bg') || '#56C257').trim();
+              topLogo.style.backgroundColor = color;
+              topLogo.style.webkitMaskImage  = `url("${LOGO_URL}")`;
+              topLogo.style.maskImage        = `url("${LOGO_URL}")`;
+              topLogo.style.webkitMaskRepeat = 'no-repeat';
+              topLogo.style.maskRepeat       = 'no-repeat';
+              topLogo.style.webkitMaskPosition = 'center';
+              topLogo.style.maskPosition       = 'center';
+              topLogo.style.webkitMaskSize   = 'contain';
+              topLogo.style.maskSize         = 'contain';
+              root.classList.add('logo-mask-ok');
+            } else {
+              if (topImg && !topImg.getAttribute('src')) topImg.src = LOGO_URL;
+              root.classList.remove('logo-mask-ok');
+            }
+          };
+          probe.onerror = () => {
+            if (topImg && !topImg.getAttribute('src')) topImg.src = LOGO_URL;
+            root.classList.remove('logo-mask-ok');
+          };
+          probe.src = LOGO_URL;
+
+          // Footer brand name (optional)
+          const brandLeft = root.querySelector('.dw-brand-left');
+          if (BRAND_NAME){
+            brandLeft.textContent = BRAND_NAME;
+            if (BRAND_HREF) brandLeft.href = BRAND_HREF;
+            brandLeft.style.display = "inline-block";
+          }
+
+          /* ---- Supermoon-style embed popup ---- */
+          const embedBtn     = root.querySelector('#fg-embed-btn');
+          const embedWrap    = root.querySelector('#fg-embed-wrapper');
+          const embedTA      = root.querySelector('#fg-embed-code');
+          const statusToast  = root.querySelector('#copy-status');
+          const inlineStatus = root.querySelector('#fg-embed-status');
+
+          function toggleEmbed(){
+            const isHidden = !embedWrap || embedWrap.style.display === '' || embedWrap.style.display === 'none';
+            if (!embedWrap) return;
+            embedWrap.style.display = isHidden ? 'block' : 'none';
+            embedBtn.setAttribute('aria-expanded', String(isHidden));
+            if (isHidden && embedTA){
+              embedTA.focus(); embedTA.select();
+              try {
+                if (navigator.clipboard && window.isSecureContext) {
+                  navigator.clipboard.writeText(embedTA.value).then(()=>{
+                    if (statusToast){ statusToast.style.display = 'block'; setTimeout(()=> statusToast.style.display='none', 2200); }
+                    if (inlineStatus){ inlineStatus.classList.add('show'); setTimeout(()=> inlineStatus.classList.remove('show'), 1500); }
+                  });
+                } else {
+                  document.execCommand('copy');
+                  if (statusToast){ statusToast.style.display = 'block'; setTimeout(()=> statusToast.style.display='none', 2200); }
+                  if (inlineStatus){ inlineStatus.classList.add('show'); setTimeout(()=> inlineStatus.classList.remove('show'), 1500); }
+                }
+              } catch(e){}
+            }
+            sendHeightToParent();
+          }
+
+          if (embedBtn){
+            embedBtn.addEventListener('click', toggleEmbed);
+          }
+
+          document.addEventListener('click', (e)=>{
+            if (!embedWrap || !embedBtn) return;
+            const open = embedWrap.style.display === 'block';
+            if (open && !embedWrap.contains(e.target) && !embedBtn.contains(e.target)){
+              embedWrap.style.display = 'none';
+              embedBtn.setAttribute('aria-expanded','false');
+              sendHeightToParent();
+            }
+          });
+
+          document.addEventListener('keydown', (e)=>{
+            if (e.key === 'Escape' && embedWrap && embedWrap.style.display === 'block') {
+              embedWrap.style.display = 'none';
+              embedBtn.setAttribute('aria-expanded','false');
+              embedBtn.focus();
+              sendHeightToParent();
+            }
+          });
+
+          /* -------------------------------- */
+          renderPage();
+
+          /* ---- Auto-resize messaging to parent (iframe) ---- */
+          function sendHeightToParent() {
+            try {
+              const height = document.body.scrollHeight;
+              window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+            } catch (e) {}
+          }
+          window.addEventListener("load", sendHeightToParent);
+          window.addEventListener("resize", sendHeightToParent);
+          const observer = new MutationObserver(sendHeightToParent);
+          observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+        }
+
+        DWTableInit(root);
+      })();
+    </script>
+  </div>
+</section>
+
+<!-- Logo size override -->
+<style>
+  /* Logo size override (desktop wins over earlier media rules) */
+  #dw-fg .dw-top-logo{ height: 64px; width: 260px; }
+  #dw-fg .dw-top-logo-img{ height: 64px; width: auto; }
+
+  @media (max-width: 600px){
+    #dw-fg .dw-top-logo{ height: 44px; width: 160px; }
+    #dw-fg .dw-top-logo-img{ height: 44px; }
+  }
+</style>
