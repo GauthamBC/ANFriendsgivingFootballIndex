@@ -8,7 +8,7 @@
 
 <body style="margin:0;">
 
-<section class="fg-compact-embed" role="region" aria-labelledby="fg-compact-embed-title"
+<section class="fg-compact-embed keep-desktop" role="region" aria-labelledby="fg-compact-embed-title"
   style="max-width:920px;margin:16px auto;font:14px/1.35 Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
          color:#181a1f;background:#ffffff;border:1px solid #DCEFE6;border-radius:12px;
          box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(86,194,87,.10);">
@@ -27,7 +27,7 @@
       --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
       --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
       --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
-      --pane-max-h: min(72vh, 640px); /* a bit shorter so footer stays visible on mobile */
+      --pane-max-h: min(72vh, 640px); /* keeps footer visible on mobile */
     }
 
     /* Header */
@@ -43,11 +43,28 @@
     .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
     .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
+    /* HORIZONTAL SCROLL WRAPPER (keeps desktop layout on mobile) */
+    .fg-compact-embed .fg-scroll{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-gutter: stable both-edges;
+    }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
+      background:linear-gradient(90deg,var(--brand-600),var(--brand-500));
+      border-radius:999px; border:2px solid #fff;
+    }
+    .fg-compact-embed .fg-scroll-inner{
+      /* This forces a “desktop width” so phones can swipe sideways */
+      min-width: 900px;
+    }
+
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
     .fg-compact-embed .row{
       display:grid;grid-template-columns:40px 1fr minmax(240px,48%);
-      gap:50px; /* ⬅️ more space between Rank and City */
+      gap:50px;
       align-items:center;margin:8px 0;
       border:1px solid var(--border)!important;border-radius:12px;padding:10px 12px;background:#fff!important;
       transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,background-color .15s ease,border-color .15s ease;
@@ -57,9 +74,11 @@
       background:linear-gradient(0deg,var(--hover-tint),var(--hover-tint)),#fff!important;
       transform:scale(1.01);box-shadow:var(--hover-shadow);border-color:var(--hover-ring)!important;
     }
+
+    /* ⛔️ Original mobile stack rule disabled for keep-desktop */
     @media (max-width:640px){
-      .fg-compact-embed .row{grid-template-columns:34px 1fr}
-      .fg-compact-embed .metric{grid-column:1 / -1}
+      .fg-compact-embed.keep-desktop .row{ grid-template-columns:40px 1fr minmax(240px,48%); gap:50px; }
+      .fg-compact-embed.keep-desktop .metric{ grid-column:auto; }
     }
 
     .fg-compact-embed .rank{display:flex;align-items:center;justify-content:center;font-weight:800;color:#475a50}
@@ -99,18 +118,20 @@
       display: flex; align-items: center; gap: 8px;
     }
     .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    @media (max-width:640px){ .fg-metrics{grid-template-columns:repeat(2,minmax(0,1fr))} }
-    @media (max-width:420px){ .fg-metrics{grid-template-columns:1fr} }
+    /* Keep 3-column metrics on phones when keep-desktop is set */
+    @media (max-width:640px){
+      .fg-compact-embed.keep-desktop .fg-metrics{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
 
     .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
     .fg-card-head{display:flex;align-items:center;gap:8px}
 
     /* LABELS (small + bold, as requested) */
     .fg-label{
-      font-size:14px !important;     /* ⬅️ smaller than 12 */
+      font-size:14px !important;
       line-height:1.15;
       color: var(--ink);
-      font-weight:900 !important;     /* ⬅️ bold */
+      font-weight:900 !important;
       letter-spacing:.1px;
     }
 
@@ -125,12 +146,12 @@
     /* NEW: icon sizing */
     .fg-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
 
-    /* Sleek internal scroll — allow scroll chaining to page */
+    /* Sleek internal vertical scroll (for long tables) */
     .fg-compact-embed .table{
       max-height: var(--pane-max-h);
       overflow:auto;
       -webkit-overflow-scrolling:touch;
-      overscroll-behavior:auto;          /* ⬅️ let scroll pass to page at edges */
+      overscroll-behavior:auto;
       scrollbar-gutter:stable both-edges;
     }
     .fg-compact-embed .table::-webkit-scrollbar{ width:10px; height:8px }
@@ -145,7 +166,7 @@
     .fg-compact-embed .fg-footer {
       display:block !important;
       text-align:center;
-      padding:8px 0;                   /* a touch more padding for thumbs */
+      padding:8px 0;
       border-top:1px solid var(--border);
       background:
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
@@ -186,7 +207,7 @@
     .fg-compact-embed .table-header{
       display:grid;
       grid-template-columns:40px 1fr minmax(240px,48%);
-      gap:84px;             /* match rows */
+      gap:84px;
       padding:10px 12px;
       margin:8px 12px 0;
       font-size:16px;
@@ -194,6 +215,12 @@
       color:var(--brand-700);
       text-shadow:0 0 1px rgba(47,133,56,.2), 0 0 8px rgba(86,194,87,.25);
       border-radius:10px;
+    }
+    @media (max-width:640px){
+      .fg-compact-embed.keep-desktop .table-header{
+        grid-template-columns:40px 1fr minmax(240px,48%);
+        gap:84px;
+      }
     }
 
     /* Rank + City left; Index centred */
@@ -217,15 +244,22 @@
     <p class="fg-sub"><em>Click a city to view its <strong>Sports Access Score</strong>, <strong>Affordability Score</strong>, and <strong>Atmosphere Score</strong></em></p>
   </div>
 
-  <!-- TABLE HEADER (sortable labels) -->
-  <div class="table-header" role="row">
-    <div class="h-rank sortable"  role="button" tabindex="0" aria-label="Sort by Rank" data-sort-key="rank" data-sort-dir=""><span>Rank</span></div>
-    <div class="h-city sortable"  role="button" tabindex="0" aria-label="Sort by City" data-sort-key="city" data-sort-dir=""><span>City</span></div>
-    <div class="h-index sortable" role="button" tabindex="0" aria-label="Sort by Friendsgiving Football Index" data-sort-key="index" data-sort-dir=""><span>Friendsgiving Football Index (0–100)</span></div>
-  </div>
+  <!-- HORIZONTAL SCROLL AREA (keeps desktop layout on mobile) -->
+  <div class="fg-scroll" role="group" aria-label="Scrollable table region">
+    <div class="fg-scroll-inner">
 
-  <!-- TABLE BODY -->
-  <div class="table" id="fg-table"><!-- Rows injected by script --></div>
+      <!-- TABLE HEADER (sortable labels) -->
+      <div class="table-header" role="row">
+        <div class="h-rank sortable"  role="button" tabindex="0" aria-label="Sort by Rank" data-sort-key="rank" data-sort-dir=""><span>Rank</span></div>
+        <div class="h-city sortable"  role="button" tabindex="0" aria-label="Sort by City" data-sort-key="city" data-sort-dir=""><span>City</span></div>
+        <div class="h-index sortable" role="button" tabindex="0" aria-label="Sort by Friendsgiving Football Index" data-sort-key="index" data-sort-dir=""><span>Friendsgiving Football Index (0–100)</span></div>
+      </div>
+
+      <!-- TABLE BODY -->
+      <div class="table" id="fg-table"><!-- Rows injected by script --></div>
+
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div class="fg-footer">
@@ -311,7 +345,7 @@
         d.innerHTML = `
           <h4 class="fg-metrics-title">
             <span class="chip" style="width:26px;height:18px;border-radius:4px;overflow:hidden;border:1px solid #cfe4da;background:#fff">
-              <img src="${flagURL}" alt="${item.city} flag" style="width:100%;height:100%;object-fit:contain">
+              <img src="${flagURL}" alt="${item.state} state flag" style="width:100%;height:100%;object-fit:contain">
             </span>
             ${item.city} — Key Scores
           </h4>
@@ -369,7 +403,7 @@
         row.innerHTML = `
           <div class="rank">${item.rank}</div>
           <div class="place">
-            <span class="chip"><img loading="lazy" decoding="async" alt="${item.city} flag" width="26" height="18" src="${flagURL}"></span>
+            <span class="chip"><img loading="lazy" decoding="async" alt="${item.state} state flag" width="26" height="18" src="${flagURL}"></span>
             <span>${item.city}</span>
           </div>
           <div class="metric"><span class="bar" style="width:${pct.toFixed(2)}%"></span><span class="val">${valText}</span></div>
@@ -551,6 +585,5 @@
     })();
   </script>
 </section>
-
 </body>
 </html>
