@@ -20,35 +20,32 @@
       #friendsgiving-table, #friendsgiving-table * { box-sizing: border-box; }
 
       /* ===== Datawrapper-style table (Action Network Green + Mint) ===== */
- /* ===== Premium wrapper + brand variables ===== */
-#dw-fg{
-  /* Brand palette */
-  --brand-50:#F6FFF9; 
-  --brand-100:#DCF2EB;
-  --brand-500:#56C257; 
-  --brand-600:#3FA94B; 
-  --brand-700:#2E8538; 
-  --brand-900:#1F5D28;
+      /* ===== Brand variables + FLAT wrapper (elevated container removed) ===== */
+      #dw-fg{
+        /* Brand palette */
+        --brand-50:#F6FFF9; 
+        --brand-100:#DCF2EB;
+        --brand-500:#56C257; 
+        --brand-600:#3FA94B; 
+        --brand-700:#2E8538; 
+        --brand-900:#1F5D28;
 
-  --bg:#ffffff;
-  --text:#1f2937;
+        --bg:#ffffff;
+        --text:#1f2937;
 
-  /* Premium elevated wrapper for the full table */
-  background:#F3FBF7;
-  border-radius:16px;
-  padding:1px 7px 0;
-  border:1px solid #E7F4EB;
-  box-shadow:
-    0 6px 14px rgba(0,0,0,0.05),
-    0 2px 6px rgba(0,0,0,0.06);
+        /* ⬇️ Flattened wrapper (no elevation) */
+        background: transparent !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
 
-  /* Keep core layout behaviour */
-  box-sizing:border-box;
-  overflow-x:hidden;
-  display:block;
-  max-width:100%;
-}
-
+        /* Keep core layout behaviour */
+        box-sizing: border-box;
+        overflow-x: hidden;
+        display: block;
+        max-width: 100%;
+      }
 
       /* Controls layout */
       #dw-fg .dw-controls{
@@ -142,20 +139,20 @@
       }
 
       /* Header */
-     /* Clean solid Action Network green header */
-#dw-fg thead th{
-  background: var(--brand-600) !important;
-  color:#ffffff !important;
-  font-weight:700;
-  text-align:center;
-  padding:14px 14px;
-  white-space:nowrap;
-  vertical-align:middle;
-  border:0;
-  border-bottom:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 2px 4px rgba(0,0,0,0.08);
-  transition:background-color .15s, color .15s;
-}
+      /* Clean solid Action Network green header */
+      #dw-fg thead th{
+        background: var(--brand-600) !important;
+        color:#ffffff !important;
+        font-weight:700;
+        text-align:center;
+        padding:14px 14px;
+        white-space:nowrap;
+        vertical-align:middle;
+        border:0;
+        border-bottom:1px solid rgba(255,255,255,0.18);
+        box-shadow:0 2px 4px rgba(0,0,0,0.08);
+        transition:background-color .15s, color .15s;
+      }
 
       #dw-fg thead th.sortable{cursor:pointer; user-select:none}
       #dw-fg thead th.sortable::after{content:"↕"; font-size:12px; opacity:.75; margin-left:8px; color:var(--header-fg,#fff)}
@@ -289,7 +286,7 @@
         #dw-fg .dw-btn{width:32px; height:32px; padding:0; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
         #dw-fg .embed-wrapper{ width: calc(100% - 16px); }
       }
-      
+
     </style>
 
     <!-- Controls -->
@@ -311,7 +308,7 @@
                alt="The Action Network logo" loading="lazy">
         </div>
       </div>
-         
+
       <div class="right">
         <label class="dw-status" for="fg-size" style="margin-right:4px;">Rows/page</label>
         <select id="fg-size" class="dw-select">
@@ -685,11 +682,11 @@
           const LOGO_URL   = "https://i.postimg.cc/x1nG117r/AN-final2-logo.png";
           const BRAND_NAME = "";
           const BRAND_HREF = "";
-          
+
           const topWrap = root.querySelector('.dw-top-brand');
           const topLogo = root.querySelector('.dw-top-logo');      // masked version
           const topImg  = root.querySelector('.dw-top-logo-img');  // <img> fallback
-          
+
           if (LOGO_URL) topLogo.style.setProperty('--logo-url', `url("${LOGO_URL}")`);
           topWrap.style.display = 'flex';
 
