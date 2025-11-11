@@ -44,14 +44,20 @@
       font-size:12px;
     }
     .fg-sub strong {
-      color: #00C358 !important;
+      color: #ECFFF4 !important;
       font-weight: 900;
-      text-shadow:
-        0 0 2px rgba(0,0,0,0.45),
-        0 0 6px rgba(0,195,88,0.95),
-        0 0 12px rgba(0,195,88,0.90),
-        0 0 18px rgba(0,195,88,0.70);
     }
+    .fg-compact-embed .head {
+      text-align: center; /* ✅ centers everything inside the header */
+    }
+    
+    .fg-compact-embed .sub,
+    .fg-sub {
+      text-align: center; /* ✅ centers the “Click a city to view…” line */
+      width: 100%;
+      display: block;
+    }
+
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
     .fg-compact-embed .row{
@@ -79,19 +85,17 @@
     .fg-compact-embed .bar{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
     .fg-compact-embed .val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:#0e1a12!important;background:#fff!important;border:2px solid #e6e9ed!important;border-radius:999px;padding:2px 8px}
 
-    /* Rank-based gradient dark → light (1 to 10) */
-/* Rank-based gradient dark → light (138 worst → 129 less-worst) */
-.fg-compact-embed .row[data-rank="138"] .bar{background:linear-gradient(90deg,#1F5D28,#56C257)!important}
-.fg-compact-embed .row[data-rank="137"] .bar{background:linear-gradient(90deg,#2A7331,#5DC65F)!important}
-.fg-compact-embed .row[data-rank="136"] .bar{background:linear-gradient(90deg,#2E8538,#63CA67)!important}
-.fg-compact-embed .row[data-rank="135"] .bar{background:linear-gradient(90deg,#379744,#6ACE70)!important}
-.fg-compact-embed .row[data-rank="134"] .bar{background:linear-gradient(90deg,#3FA94B,#71D279)!important}
-.fg-compact-embed .row[data-rank="133"] .bar{background:linear-gradient(90deg,#52B760,#7AD783)!important}
-.fg-compact-embed .row[data-rank="132"] .bar{background:linear-gradient(90deg,#64C274,#84DB8E)!important}
-.fg-compact-embed .row[data-rank="131"] .bar{background:linear-gradient(90deg,#76CC88,#8FE099)!important}
-.fg-compact-embed .row[data-rank="130"] .bar{background:linear-gradient(90deg,#8AD79D,#9AE5A5)!important}
-.fg-compact-embed .row[data-rank="129"] .bar{background:linear-gradient(90deg,#9FE1B3,#A7E6BA)!important}
-
+    /* Rank-based gradient dark → light (138 worst → 129 less-worst) */
+    .fg-compact-embed .row[data-rank="138"] .bar{background:linear-gradient(90deg,#1F5D28,#56C257)!important}
+    .fg-compact-embed .row[data-rank="137"] .bar{background:linear-gradient(90deg,#2A7331,#5DC65F)!important}
+    .fg-compact-embed .row[data-rank="136"] .bar{background:linear-gradient(90deg,#2E8538,#63CA67)!important}
+    .fg-compact-embed .row[data-rank="135"] .bar{background:linear-gradient(90deg,#379744,#6ACE70)!important}
+    .fg-compact-embed .row[data-rank="134"] .bar{background:linear-gradient(90deg,#3FA94B,#71D279)!important}
+    .fg-compact-embed .row[data-rank="133"] .bar{background:linear-gradient(90deg,#52B760,#7AD783)!important}
+    .fg-compact-embed .row[data-rank="132"] .bar{background:linear-gradient(90deg,#64C274,#84DB8E)!important}
+    .fg-compact-embed .row[data-rank="131"] .bar{background:linear-gradient(90deg,#76CC88,#8FE099)!important}
+    .fg-compact-embed .row[data-rank="130"] .bar{background:linear-gradient(90deg,#8AD79D,#9AE5A5)!important}
+    .fg-compact-embed .row[data-rank="129"] .bar{background:linear-gradient(90deg,#9FE1B3,#A7E6BA)!important}
 
     /* Details (expand/collapse) */
     .fg-details{
@@ -100,15 +104,37 @@
       transition:max-height .28s ease, opacity .28s ease, transform .28s ease, border-width .18s ease, padding .18s ease, margin .18s ease;
     }
     .fg-details.open{margin:8px 0 12px;padding:12px;border-width:1px;max-height:420px;opacity:1;transform:translateY(0)}
-    .fg-metrics-title{margin:0 0 10px;font-weight:800;font-size:14px;color:var(--brand-900);display:flex;align-items:center;gap:8px}
-    .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .fg-metrics-title {
+      margin: 0 0 10px;
+      font-weight: 900;                /* ✅ Make it fully bold */
+      font-size: 16px;                 /* ✅ Slightly larger for hierarchy */
+      color: var(--brand-600);         /* ✅ Medium Action Network green */
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fg-metrics-title {
+      color: var(--brand-700) !important;   /* ✅ Strong green */
+      font-weight: 900 !important;
+    }
+    .fg-metrics-title span,
+    .fg-metrics-title img {
+      filter: none;
+    }
+
+        .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     @media (max-width:640px){ .fg-metrics{grid-template-columns:repeat(2,minmax(0,1fr))} }
     @media (max-width:420px){ .fg-metrics{grid-template-columns:1fr} }
 
     .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
     .fg-card-head{display:flex;align-items:center;gap:8px}
     .fg-label{font-size:12px;color:var(--muted);font-weight:700}
-    .fg-val{font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}
+    /* ✅ Make metric labels bold only */
+    .fg-label {
+      font-weight: 900 !important;
+      font-size: 14px !important; /* optional — remove if you want original size */
+    }
+        .fg-val{font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}
     .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
     .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
 
@@ -185,6 +211,65 @@
       .fg-compact-embed .embed-btn{ position:static !important; padding:6px 10px; font-size:12px; line-height:1.2; flex-shrink:0; }
       .fg-compact-embed .fg-footer img{ height:44px; }
     }
+
+    /* Table header row (sortable) */
+    .fg-compact-embed .table-header{
+      display:grid;
+      grid-template-columns:40px 1fr minmax(240px,48%);
+      gap:10px;
+      padding:10px 12px;
+      margin:8px 12px 0;
+      font-size:16px;
+      font-weight:800;
+      color:var(--brand-700);
+      text-shadow:0 0 1px rgba(47,133,56,.2), 0 0 8px rgba(86,194,87,.25);
+      border-radius:10px;
+    }
+  
+  /* Table header row */
+    .fg-compact-embed .table-header {
+      display:grid;
+      grid-template-columns:40px 1fr minmax(240px,48%);
+      gap:50px;
+      padding:10px 12px;
+      margin:8px 12px 0;
+      font-size:16px;
+      font-weight:800;
+      color:var(--brand-700);
+    }
+    
+    /* Rank + City stay left aligned */
+    .fg-compact-embed .table-header .h-rank,
+    .fg-compact-embed .table-header .h-city {
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    
+    /* Add slight spacing for visual comfort */
+    .fg-compact-embed .table-header .h-city {
+      padding-left:6px; /* ✅ makes header spacing feel natural */
+    }
+    
+    /* Only Index column gets centred */
+    .fg-compact-embed .table-header .h-index {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .fg-compact-embed .sortable{ cursor:pointer; user-select:none; position:relative; }
+    .fg-compact-embed .sortable:focus{ outline:2px solid var(--brand-300); outline-offset:2px; border-radius:6px; }
+    .fg-compact-embed .sortable::after{
+      content:""; margin-left:8px; border:5px solid transparent; opacity:.35;
+      border-top-color:var(--brand-700); transform:translateY(2px);
+    }
+    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{
+      content:""; border:5px solid transparent; border-bottom-color:var(--brand-700); transform:translateY(-2px) rotate(180deg); opacity:1;
+    }
+    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{
+      content:""; border:5px solid transparent; border-top-color:var(--brand-700); transform:translateY(2px); opacity:1;
+    }
   </style>
 
   <!-- HEADER -->
@@ -193,7 +278,14 @@
     <p class="fg-sub"><em>Click a city to view its <strong>Sports Access Score</strong>, <strong>Affordability Score</strong>, and <strong>Atmosphere Score</strong></em></p>
   </div>
 
-  <!-- TABLE -->
+  <!-- TABLE HEADER (sortable labels) -->
+  <div class="table-header" role="row">
+    <div class="h-rank sortable"  role="button" tabindex="0" aria-label="Sort by Rank" data-sort-key="rank" data-sort-dir=""><span>Rank</span></div>
+    <div class="h-city sortable"  role="button" tabindex="0" aria-label="Sort by City" data-sort-key="city" data-sort-dir=""><span>City</span></div>
+    <div class="h-index sortable" role="button" tabindex="0" aria-label="Sort by Friendsgiving Football Index" data-sort-key="index" data-sort-dir=""><span>Friendsgiving Football Index (0–100)</span></div>
+  </div>
+
+  <!-- TABLE BODY -->
   <div class="table" id="fg-table"><!-- Rows injected by script --></div>
 
   <!-- FOOTER (Supermoon-style embed popup) -->
@@ -231,6 +323,9 @@
         {rank:130, city:"Athens, GA",        state:"GA", index:25.28, sports: 4.65, affordability:42.52, atmosphere:34.16},
         {rank:129, city:"Corvallis, OR",     state:"OR", index:25.33, sports: 4.41, affordability:63.40, atmosphere: 5.52}
       ];
+
+      /* Keep a copy for default (unsorted) render */
+      const ORIGINAL = TOP10.slice();
 
       /* State flags for all bottom-10 states */
       const FLAGS = {
@@ -377,7 +472,7 @@
 
         function close(){
           row.setAttribute('aria-expanded','false');
-          details.classList.remove('open');
+        details.classList.remove('open');
           details.setAttribute('aria-hidden','true');
           details.querySelectorAll('.fg-bar > span').forEach(s=> s.style.width='0');
         }
@@ -398,12 +493,16 @@
         return {row, details};
       }
 
-      // build table
-      TOP10.forEach(item => {
-        const {row, details} = makeRow(item);
-        table.appendChild(row);
-        table.appendChild(details);
-      });
+      /* Render helper (clears and rebuilds table) */
+      function renderTable(data){
+        table.innerHTML = "";
+        data.forEach(item=>{
+          const {row, details} = makeRow(item);
+          table.appendChild(row);
+          table.appendChild(details);
+        });
+        sendHeightToParent();
+      }
 
       /* ---- Auto-resize messaging to parent (iframe) ---- */
       function sendHeightToParent() {
@@ -412,10 +511,61 @@
           window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
         } catch (e) {}
       }
+
+      /* Initial render: ORIGINAL order (no sorting) */
+      renderTable(ORIGINAL);
+
       window.addEventListener("load", sendHeightToParent);
       window.addEventListener("resize", sendHeightToParent);
       const observer = new MutationObserver(sendHeightToParent);
       observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+      /* ---- Sorting (starts only after user clicks) ---- */
+      const headers = document.querySelectorAll('.table-header .sortable');
+      let currentSort = { key:null, dir:null }; // none by default
+
+      function sortData(key, dir){
+        // Work on a copy of ORIGINAL so we always sort from the base set
+        const arr = ORIGINAL.slice();
+        const collator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
+
+        arr.sort((a,b)=>{
+          let res = 0;
+          if (key === 'city') {
+            res = collator.compare(a.city, b.city);
+          } else if (key === 'rank' || key === 'index') {
+            res = (a[key] < b[key]) ? -1 : (a[key] > b[key]) ? 1 : 0;
+          }
+          return dir === 'asc' ? res : -res;
+        });
+        return arr;
+      }
+
+      function clearHeaderStates(){
+        headers.forEach(h=> h.setAttribute('data-sort-dir',''));
+      }
+
+      function onHeaderActivate(el){
+        const key = el.getAttribute('data-sort-key');
+        let dir = el.getAttribute('data-sort-dir');
+
+        // Toggle dir; if empty -> asc, asc -> desc, desc -> asc
+        dir = (dir === 'asc') ? 'desc' : 'asc';
+
+        clearHeaderStates();
+        el.setAttribute('data-sort-dir', dir);
+        currentSort = { key, dir };
+
+        const sorted = sortData(key, dir);
+        renderTable(sorted);
+      }
+
+      headers.forEach(h=>{
+        h.addEventListener('click', ()=> onHeaderActivate(h));
+        h.addEventListener('keydown', (e)=>{
+          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onHeaderActivate(h); }
+        });
+      });
 
       /* ---- Footer embed popup & copy ---- */
       const btn     = document.getElementById('copy-embed-btn');
@@ -464,6 +614,5 @@
     })();
   </script>
 </section>
-
 </body>
 </html>
