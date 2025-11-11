@@ -124,8 +124,20 @@
 
       /* Card & table */
       #dw-fg .dw-card { background: var(--bg); border: 0; box-shadow: none; overflow: hidden; margin: 0; width: 100%; }
-      #dw-fg .dw-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
-      #dw-fg .dw-scroll.no-scroll { overflow-x: hidden !important; }
+
+      /* Base scrolling for the table body — single authoritative rule */
+      #dw-fg .dw-scroll{
+        overflow-x: auto;
+        max-height: var(--table-max-h, 560px);
+        overflow-y: auto;                     /* vertical scroll lives here */
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;         /* prevent parent scroll bleed */
+        -ms-overflow-style: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--scroll-thumb) transparent;
+      }
+      #dw-fg .dw-scroll.no-scroll{ overflow-x:hidden !important; }
+
       #dw-fg table.dw-table{
         width: 100%;
         border-collapse: separate;
@@ -180,14 +192,7 @@
       #dw-fg tbody tr:hover{background:var(--hover,#BCE5D6); box-shadow:inset 3px 0 0 var(--brand-500)}
       #dw-fg thead th{position:sticky; top:var(--sticky-top,0); z-index:5}
 
-      /* Scrollbar + height (base) */
-      #dw-fg .dw-scroll{
-        max-height:var(--table-max-h,560px);
-        overflow-y:auto;
-        -ms-overflow-style:auto;
-        scrollbar-width:thin;
-        scrollbar-color:var(--scroll-thumb) transparent
-      }
+      /* Scrollbar cosmetics */
       #dw-fg .dw-scroll::-webkit-scrollbar:horizontal{height:0; display:none}
       #dw-fg .dw-scroll::-webkit-scrollbar:vertical{width:var(--vbar-w)}
       #dw-fg .dw-scroll:hover::-webkit-scrollbar:vertical{width:var(--vbar-w-hover)}
@@ -201,10 +206,10 @@
       /* Empty-state row */
       #dw-fg tr.dw-empty td{text-align:center; color:#6b7280; font-style:italic; padding:18px 14px; background:linear-gradient(0deg,#fff,var(--brand-50))}
 
-      /* ===== Footer (sticky, always visible) ===== */
+      /* ===== Footer (always visible; table area handles scrolling) ===== */
       #dw-fg .dw-footer{
-        position: sticky;
-        bottom: 0;
+        position: relative;   /* no sticky */
+        bottom: auto;
         z-index: 5;
         display:block;
         padding:10px 12px 14px;
@@ -215,7 +220,7 @@
           linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
         color:#fff;
         overflow:visible;
-        border-radius:0; /* flat */
+        border-radius:0;
       }
       #dw-fg .footer-inner{
         display:flex; align-items:center; justify-content:center; gap:12px; position:relative;
@@ -258,7 +263,7 @@
       #dw-fg.lock-scroll .dw-scroll{
         height: var(--table-max-h, 560px);
         max-height: var(--table-max-h, 560px);
-        overflow-y: auto;
+        overflow-y: auto !important;
       }
       #dw-fg:not(.lock-scroll) .dw-scroll{
         height: auto;
@@ -304,13 +309,12 @@
         #dw-fg .dw-btn{width:32px; height:32px; padding:0; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
         #dw-fg .embed-wrapper{ width: calc(100% - 16px); }
 
-        /* In lock-scroll mode, cap height a bit further to keep footer visible */
+        /* Mobile clamp so the table never feels tiny when locked */
         #dw-fg.lock-scroll .dw-scroll{
-          max-height: min(var(--table-max-h,560px), 65vh);
-          height: min(var(--table-max-h,560px), 65vh);
+          height: clamp(360px, 65vh, var(--table-max-h, 560px));
+          max-height: clamp(360px, 65vh, var(--table-max-h, 560px));
         }
       }
-
     </style>
 
     <!-- Controls -->
@@ -618,6 +622,7 @@
               rows.forEach(r=>tb.insertBefore(r, emptyRow));
               clearSortedClasses();
               renderPage();
+              sendHeightToParent();  /* keep container/iframe in sync */
               return;
             }
 
@@ -638,6 +643,7 @@
             rows.forEach(r=>tb.insertBefore(r, emptyRow));
             clearSortedClasses(); markSortedColumn(colIdx);
             renderPage();
+            sendHeightToParent();
           }
 
           /* zebra */
@@ -690,10 +696,15 @@
           searchInput.addEventListener('input', e=>{
             syncClearBtn();
             clearTimeout(t);
-            t=setTimeout(()=>{ filter=(e.target.value||'').toLowerCase().trim(); page=1; renderPage(); },120);
+            t=setTimeout(()=>{
+              filter=(e.target.value||'').toLowerCase().trim();
+              page=1;
+              renderPage();
+              sendHeightToParent();  // re-sync parent height
+            },120);
           });
           clearBtn.addEventListener('click', ()=>{
-            searchInput.value=''; syncClearBtn(); filter=''; page=1; renderPage(); searchInput.focus();
+            searchInput.value=''; syncClearBtn(); filter=''; page=1; renderPage(); searchInput.focus(); sendHeightToParent();
           });
           syncClearBtn();
 
@@ -710,9 +721,10 @@
             page = 1;
             setLockScroll();
             renderPage();
+            sendHeightToParent();   // ensure parent resizes correctly after lock/unlock
           });
-          prevBtn.addEventListener('click', ()=>{ page--; renderPage(); });
-          nextBtn.addEventListener('click', ()=>{ page++; renderPage(); });
+          prevBtn.addEventListener('click', ()=>{ page--; renderPage(); sendHeightToParent(); });
+          nextBtn.addEventListener('click', ()=>{ page++; renderPage(); sendHeightToParent(); });
 
           /* ---------- Logo Config ---------- */
           const LOGO_URL   = "https://i.postimg.cc/x1nG117r/AN-final2-logo.png";
@@ -817,6 +829,7 @@
           /* -------------------------------- */
           setLockScroll();   /* ensure correct mode on load */
           renderPage();
+          sendHeightToParent();
 
           /* ---- Auto-resize messaging to parent (iframe) ---- */
           function sendHeightToParent() {
