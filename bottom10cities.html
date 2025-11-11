@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Top 10 Cities — Friendsgiving Football Watch Party Index</title>
+</head>
+
+<body style="margin:0;">
+
+<section class="fg-compact-embed" role="region" aria-labelledby="fg-compact-embed-title"
+  style="max-width:920px;margin:16px auto;font:14px/1.35 Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+         color:#181a1f;background:#ffffff;border:1px solid #DCEFE6;border-radius:12px;
+         box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(86,194,87,.10);">
+  <style>
+    /* === SCOPING PATCH ============================================== */
+    section.fg-compact-embed, section.fg-compact-embed * {
+      box-sizing: border-box;
+      font-family: inherit;
+      color: inherit;
+    }
+    section.fg-compact-embed { color-scheme: light; }
+    /* ================================================================= */
+
+    .fg-compact-embed{
+      --brand-50:#F6FFF9; --brand-100:#DCF2EB; --brand-300:#BCE5D6;
+      --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
+      --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
+      --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
+    }
+
+    /* Header */
+    .fg-compact-embed .head{
+      padding:14px 16px;border-bottom:1px solid var(--border)!important;color:#fff!important;
+      background:
+        radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
+        linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
+    }
+    .fg-compact-embed .title{margin:0 0 2px;font-size:clamp(16px,2.2vw,20px);line-height:1.2;font-weight:800;color:#fff!important}
+    .fg-compact-embed .sub{margin:0;color:rgba(255,255,255,.92)!important;font-size:12px}
+    .fg-sub{
+      margin:0;
+      color:rgba(255,255,255,.92);
+      font-size:12px;
+    }
+    .fg-sub strong {
+      color: #00C358 !important;
+      font-weight: 900;
+      text-shadow:
+        0 0 2px rgba(0,0,0,0.45),
+        0 0 6px rgba(0,195,88,0.95),
+        0 0 12px rgba(0,195,88,0.90),
+        0 0 18px rgba(0,195,88,0.70);
+    }
+    /* Table / rows */
+    .fg-compact-embed .table{padding:10px 12px}
+    .fg-compact-embed .row{
+      display:grid;grid-template-columns:40px 1fr minmax(240px,48%);gap:10px;align-items:center;margin:8px 0;
+      border:1px solid var(--border)!important;border-radius:12px;padding:10px 12px;background:#fff!important;
+      transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,background-color .15s ease,border-color .15s ease;
+      transform-origin:center; cursor:pointer;
+    }
+    .fg-compact-embed .row:hover,.fg-compact-embed .row:focus-within{
+      background:linear-gradient(0deg,var(--hover-tint),var(--hover-tint)),#fff!important;
+      transform:scale(1.01);box-shadow:var(--hover-shadow);border-color:var(--hover-ring)!important;
+    }
+    @media (max-width:640px){
+      .fg-compact-embed .row{grid-template-columns:34px 1fr}
+      .fg-compact-embed .metric{grid-column:1 / -1}
+    }
+
+    .fg-compact-embed .rank{display:flex;align-items:center;justify-content:center;font-weight:800;color:#475a50}
+    .fg-compact-embed .place{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--ink)}
+    .fg-compact-embed .chip{width:26px;height:18px;border-radius:4px;overflow:hidden;border:1px solid #cfe4da;background:#fff;flex-shrink:0}
+    .fg-compact-embed .chip img{width:100%;height:100%;object-fit:contain;display:block}
+
+    /* Metric bar (top-level index) */
+    .fg-compact-embed .metric{position:relative;height:28px;border-radius:999px;background:rgba(86,194,87,.10)!important;overflow:hidden}
+    .fg-compact-embed .bar{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+    .fg-compact-embed .val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:#0e1a12!important;background:#fff!important;border:2px solid #e6e9ed!important;border-radius:999px;padding:2px 8px}
+
+    /* Rank-based gradient dark → light (1 to 10) */
+/* Rank-based gradient dark → light (138 worst → 129 less-worst) */
+.fg-compact-embed .row[data-rank="138"] .bar{background:linear-gradient(90deg,#1F5D28,#56C257)!important}
+.fg-compact-embed .row[data-rank="137"] .bar{background:linear-gradient(90deg,#2A7331,#5DC65F)!important}
+.fg-compact-embed .row[data-rank="136"] .bar{background:linear-gradient(90deg,#2E8538,#63CA67)!important}
+.fg-compact-embed .row[data-rank="135"] .bar{background:linear-gradient(90deg,#379744,#6ACE70)!important}
+.fg-compact-embed .row[data-rank="134"] .bar{background:linear-gradient(90deg,#3FA94B,#71D279)!important}
+.fg-compact-embed .row[data-rank="133"] .bar{background:linear-gradient(90deg,#52B760,#7AD783)!important}
+.fg-compact-embed .row[data-rank="132"] .bar{background:linear-gradient(90deg,#64C274,#84DB8E)!important}
+.fg-compact-embed .row[data-rank="131"] .bar{background:linear-gradient(90deg,#76CC88,#8FE099)!important}
+.fg-compact-embed .row[data-rank="130"] .bar{background:linear-gradient(90deg,#8AD79D,#9AE5A5)!important}
+.fg-compact-embed .row[data-rank="129"] .bar{background:linear-gradient(90deg,#9FE1B3,#A7E6BA)!important}
+
+
+    /* Details (expand/collapse) */
+    .fg-details{
+      margin:0;border:1px solid var(--border);border-width:0;border-radius:12px;background:var(--brand-50);
+      max-height:0;opacity:0;overflow:hidden;transform:translateY(-6px);
+      transition:max-height .28s ease, opacity .28s ease, transform .28s ease, border-width .18s ease, padding .18s ease, margin .18s ease;
+    }
+    .fg-details.open{margin:8px 0 12px;padding:12px;border-width:1px;max-height:420px;opacity:1;transform:translateY(0)}
+    .fg-metrics-title{margin:0 0 10px;font-weight:800;font-size:14px;color:var(--brand-900);display:flex;align-items:center;gap:8px}
+    .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    @media (max-width:640px){ .fg-metrics{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (max-width:420px){ .fg-metrics{grid-template-columns:1fr} }
+
+    .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
+    .fg-card-head{display:flex;align-items:center;gap:8px}
+    .fg-label{font-size:12px;color:var(--muted);font-weight:700}
+    .fg-val{font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums}
+    .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
+    .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
+
+    /* NEW: icon sizing for metric heads */
+    .fg-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
+
+    /* Sleek internal scroll (desktop + mobile) */
+    .fg-compact-embed{ --pane-max-h: min(78vh, 760px); }
+    .fg-compact-embed .table{
+      max-height: var(--pane-max-h); overflow:auto; -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain; scrollbar-gutter:stable both-edges;
+    }
+    .fg-compact-embed .table::-webkit-scrollbar{ width:10px; height:8px }
+    .fg-compact-embed .table::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
+    .fg-compact-embed .table::-webkit-scrollbar-thumb{
+      background:linear-gradient(180deg,var(--brand-600),var(--brand-500)); border-radius:999px; border:2px solid #fff;
+    }
+    .fg-compact-embed .table::-webkit-scrollbar-thumb:hover{ background:linear-gradient(180deg,var(--brand-700),var(--brand-600)) }
+    .fg-compact-embed .table{ scrollbar-width:thin; scrollbar-color:var(--brand-600) var(--brand-50) }
+
+    /* Footer + embed button (Supermoon-style) */
+    .fg-compact-embed .fg-footer {
+      display: block !important;
+      text-align: center;
+      padding: 6px 0;
+      border-top: 1px solid var(--border);
+      background:
+        radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
+        linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
+      color: #fff;
+      position: relative;
+      overflow: visible;
+    }
+    .fg-compact-embed .footer-inner {
+      display: flex; justify-content: center; align-items: center; gap: 12px; position: relative;
+    }
+    .fg-compact-embed .embed-btn {
+      position: absolute; left: 14px; background: #56C257; color: #fff; border: 1px solid #56C257;
+      border-radius: 8px; padding: 6px 14px; font: 13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; cursor: pointer; transition: .2s ease;
+    }
+    .fg-compact-embed .embed-btn:hover { background:#3FA94B; border-color:#3FA94B; }
+    .fg-compact-embed .fg-footer img {
+      height: 52px; width: auto; display: inline-block; filter: brightness(0) invert(1);
+    }
+
+    .fg-compact-embed .embed-wrapper{
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(600px, calc(100% - 24px));
+      display: none;
+      padding: 16px 20px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      z-index: 1000;
+    }
+    .fg-compact-embed .embed-wrapper::after{
+      content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-8px;
+      border:8px solid transparent; border-top-color:#fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.08));
+    }
+    .fg-compact-embed #copy-status { display:none; color:#008000; font-size:13px; margin-top:6px; }
+    .fg-compact-embed .embed-wrapper textarea{
+      width:100%; height:140px; font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      color:#111; background:#fff; padding:10px 12px; border:1px solid #ddd; border-radius:8px; resize:none;
+    }
+
+    /* Mobile footer tweaks */
+    @media (max-width:640px){
+      .fg-compact-embed .footer-inner{ justify-content:space-between !important; padding:0 10px; gap:8px; }
+      .fg-compact-embed .embed-btn{ position:static !important; padding:6px 10px; font-size:12px; line-height:1.2; flex-shrink:0; }
+      .fg-compact-embed .fg-footer img{ height:44px; }
+    }
+  </style>
+
+  <!-- HEADER -->
+  <div class="head">
+    <h3 id="fg-compact-embed-title" class="title">Top 10 Cities Least Suited for a Friendsgiving Football Watch Party</h3>
+    <p class="fg-sub"><em>Click a city to view its <strong>Sports Access</strong>, <strong>Affordability</strong>, and <strong>Atmosphere</strong> scores.</em></p>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table" id="fg-table"><!-- Rows injected by script --></div>
+
+  <!-- FOOTER (Supermoon-style embed popup) -->
+  <div class="fg-footer">
+    <div class="footer-inner">
+      <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
+      <img src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
+           alt="The Action Network logo"
+           width="120" height="auto" loading="lazy" decoding="async" />
+    </div>
+
+    <div id="embed-wrapper" class="embed-wrapper" role="dialog" aria-modal="false" aria-labelledby="embed-title">
+      <textarea id="embed-code" readonly>&lt;iframe 
+  src="https://gauthambc.github.io/ActionNetwork/friendsgiving-bottom10.html"
+  title="Top 10 Cities Least Suited for a Friendsgiving Football Watch Party"
+  width="100%" height="750"
+  scrolling="no"
+  style="border:0;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
+      <p id="copy-status">Embed code copied!</p>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      /* ---- Data (bottom 10 with sub-metrics; bars scale 0–100) ---- */
+      const TOP10 = [
+        {rank:138, city:"Honolulu, HI",      state:"HI", index:18.99, sports: 2.50, affordability:20.37, atmosphere:43.42},
+        {rank:137, city:"Syracuse, NY",      state:"NY", index:21.08, sports: 4.69, affordability:39.86, atmosphere:21.02},
+        {rank:136, city:"Reno, NV",          state:"NV", index:22.26, sports: 6.40, affordability:36.59, atmosphere:27.55},
+        {rank:135, city:"San Jose, CA",      state:"CA", index:22.37, sports: 1.23, affordability:30.07, atmosphere:45.41},
+        {rank:134, city:"Eugene, OR",        state:"OR", index:22.57, sports: 2.92, affordability:50.79, atmosphere:14.51},
+        {rank:133, city:"Winston-Salem, NC", state:"NC", index:24.04, sports: 6.63, affordability:41.66, atmosphere:27.25},
+        {rank:132, city:"Fresno, CA",        state:"CA", index:24.85, sports: 0.70, affordability:43.87, atmosphere:36.85},
+        {rank:131, city:"Durham, NC",        state:"NC", index:25.08, sports: 5.05, affordability:45.52, atmosphere:28.51},
+        {rank:130, city:"Athens, GA",        state:"GA", index:25.28, sports: 4.65, affordability:42.52, atmosphere:34.16},
+        {rank:129, city:"Corvallis, OR",     state:"OR", index:25.33, sports: 4.41, affordability:63.40, atmosphere: 5.52}
+      ];
+
+      /* State flags for all bottom-10 states */
+      const FLAGS = {
+        "HI": "Flag_of_Hawaii.svg",
+        "NY": "Flag_of_New_York.svg",
+        "NV": "Flag_of_Nevada.svg",
+        "CA": "Flag_of_California.svg",
+        "OR": "Flag_of_Oregon.svg",
+        "NC": "Flag_of_North_Carolina.svg",
+        "GA": "Flag_of_Georgia_(U.S._state).svg"
+      };
+      
+      /* --- SVG icons (same set) --- */
+      const ICONS = {
+        sports: () => `
+          <svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#2E8538" d="M7 3h10v3a5 5 0 0 1-4 4.9V13h3a4 4 0 0 1 4 4v1H4v-1a4 4 0 0 1 4-4h3V10.9A5 5 0 0 1 7 6z"/>
+            <path fill="#56C257" d="M17 3v2a3 3 0 1 0 0-2zM7 3v2a3 3 0 1 1 0-2z"/>
+          </svg>
+        `,
+        affordability: () => `
+          <svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="#DCF2EB"/>
+            <path fill="#3FA94B" d="M12 5a1 1 0 0 1 1 1v1.05c1.96.23 3.5 1.31 3.5 2.95 0 1.92-1.86 2.73-3.9 3.2-1.78.41-2.6.77-2.6 1.5 0 .66.77 1.16 2 1.16 1.04 0 1.93-.3 2.6-.78l.78 1.6c-.77.54-1.86.9-3.08 1.02V19a1 1 0 1 1-2 0v-1.03c-2.03-.25-3.5-1.35-3.5-2.9 0-1.9 1.83-2.68 3.8-3.13 1.86-.42 2.7-.82 2.7-1.56 0-.72-.85-1.2-2.07-1.2-1.06 0-2 .34-2.76.9l-.84-1.56C9.2 7 10.49 6.6 11.94 6.48V6a1 1 0 0 1 1-1z"/>
+          </svg>
+        `,
+        atmosphere: (uid) => `
+          <svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="atm-g-${uid}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#3FA94B"/><stop offset="100%" stop-color="#56C257"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#atm-g-${uid})" d="M13 3a3 3 0 0 0-6 0v8.59A5 5 0 1 0 13 16zM8 3a1 1 0 1 1 2 0v7H8z"/>
+            <circle cx="16.5" cy="15.5" r="3.5" fill="#BCE5D6"/>
+          </svg>
+        `
+      };
+
+      const table = document.getElementById('fg-table');
+
+      function makeDetails(item, flagURL){
+        const d = document.createElement('div');
+        d.className = 'fg-details';
+        d.setAttribute('aria-hidden','true');
+
+        const uid = `${item.state}-${item.rank}`;
+
+        d.innerHTML = `
+          <h4 class="fg-metrics-title">
+            <span class="chip" style="width:26px;height:18px;border-radius:4px;overflow:hidden;border:1px solid #cfe4da;background:#fff">
+              <img src="${flagURL}" alt="${item.city} flag" style="width:100%;height:100%;object-fit:contain">
+            </span>
+            ${item.city} — Key Scores
+          </h4>
+          <div class="fg-metrics">
+            <div class="fg-card">
+              <div class="fg-card-head">
+                ${ICONS.sports()}
+                <div class="fg-label">Sports Access</div>
+              </div>
+              <div class="fg-val">${item.sports.toFixed(2)}</div>
+              <div class="fg-bar"><span></span></div>
+            </div>
+            <div class="fg-card">
+              <div class="fg-card-head">
+                ${ICONS.affordability()}
+                <div class="fg-label">Affordability</div>
+              </div>
+              <div class="fg-val">${item.affordability.toFixed(2)}</div>
+              <div class="fg-bar"><span></span></div>
+            </div>
+            <div class="fg-card">
+              <div class="fg-card-head">
+                ${ICONS.atmosphere(uid)}
+                <div class="fg-label">Atmosphere</div>
+              </div>
+              <div class="fg-val">${item.atmosphere.toFixed(2)}</div>
+              <div class="fg-bar"><span></span></div>
+            </div>
+          </div>
+        `;
+        return d;
+      }
+
+      function makeRow(item){
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.dataset.rank = String(item.rank);
+        row.setAttribute('role','button');
+        row.setAttribute('tabindex','0');
+        row.setAttribute('aria-expanded','false');
+
+        const flagURL = `https://commons.wikimedia.org/wiki/Special:FilePath/${FLAGS[item.state]}`;
+        const pct = Math.max(0, Math.min(100, item.index));
+        const valText = `${item.index.toFixed(2)} / 100`;
+
+        row.innerHTML = `
+          <div class="rank">${item.rank}</div>
+          <div class="place">
+            <span class="chip"><img loading="lazy" decoding="async" alt="${item.city} flag" width="26" height="18" src="${flagURL}"></span>
+            <span>${item.city}</span>
+          </div>
+          <div class="metric"><span class="bar" style="width:${pct.toFixed(2)}%"></span><span class="val">${valText}</span></div>
+        `;
+
+        const details = makeDetails(item, flagURL);
+
+        function sendHeightToParent() {
+          try {
+            const height = document.body.scrollHeight;
+            window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+          } catch (e) {}
+        }
+
+        function open(){
+          // close any other open row
+          document.querySelectorAll('.fg-compact-embed .row[aria-expanded="true"]').forEach(r=>{
+            if(r!==row){
+              r.setAttribute('aria-expanded','false');
+              const d = r.nextElementSibling;
+              if(d && d.classList.contains('fg-details')){
+                d.classList.remove('open');
+                d.setAttribute('aria-hidden','true');
+                d.querySelectorAll('.fg-bar > span').forEach(s=> s.style.width='0');
+              }
+            }
+          });
+
+          row.setAttribute('aria-expanded','true');
+          details.classList.add('open');
+          details.setAttribute('aria-hidden','false');
+
+          // animate bars (0–100)
+          details.querySelectorAll('.fg-card').forEach(card=>{
+            const v = parseFloat(card.querySelector('.fg-val').textContent);
+            const bar = card.querySelector('.fg-bar > span');
+            requestAnimationFrame(()=> bar.style.width = `${Math.max(0,Math.min(100,v))}%`);
+          });
+
+          sendHeightToParent();
+          details.scrollIntoView({block:'nearest', behavior:'smooth'});
+        }
+
+        function close(){
+          row.setAttribute('aria-expanded','false');
+          details.classList.remove('open');
+          details.setAttribute('aria-hidden','true');
+          details.querySelectorAll('.fg-bar > span').forEach(s=> s.style.width='0');
+        }
+
+        row.addEventListener('click', ()=>{
+          const openNow = row.getAttribute('aria-expanded') === 'true';
+          openNow ? close() : open();
+        });
+
+        row.addEventListener('keydown', e=>{
+          if(e.key==='Enter' || e.key===' '){
+            e.preventDefault();
+            const openNow = row.getAttribute('aria-expanded') === 'true';
+            openNow ? close() : open();
+          }
+        });
+
+        return {row, details};
+      }
+
+      // build table
+      TOP10.forEach(item => {
+        const {row, details} = makeRow(item);
+        table.appendChild(row);
+        table.appendChild(details);
+      });
+
+      /* ---- Auto-resize messaging to parent (iframe) ---- */
+      function sendHeightToParent() {
+        try {
+          const height = document.body.scrollHeight;
+          window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+        } catch (e) {}
+      }
+      window.addEventListener("load", sendHeightToParent);
+      window.addEventListener("resize", sendHeightToParent);
+      const observer = new MutationObserver(sendHeightToParent);
+      observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+      /* ---- Footer embed popup & copy ---- */
+      const btn     = document.getElementById('copy-embed-btn');
+      const wrapper = document.getElementById('embed-wrapper');
+      const ta      = document.getElementById('embed-code');
+      const status  = document.getElementById('copy-status');
+
+      if (btn && ta && wrapper && status) {
+        btn.addEventListener('click', () => {
+          const isHidden = wrapper.style.display === 'none' || wrapper.style.display === '';
+          wrapper.style.display = isHidden ? 'block' : 'none';
+          btn.textContent = isHidden ? 'Hide Embed Code' : '🔗 Embed This Table';
+          btn.setAttribute('aria-expanded', String(isHidden));
+          if (isHidden) {
+            ta.focus();
+            ta.select();
+            try { document.execCommand('copy'); } catch(e) {}
+            status.style.display = 'block';
+            setTimeout(() => status.style.display = 'none', 2500);
+          } else {
+            btn.focus();
+          }
+          sendHeightToParent();
+        });
+
+        document.addEventListener('click', (e)=>{
+          const open = wrapper.style.display === 'block';
+          if (open && !wrapper.contains(e.target) && !btn.contains(e.target)) {
+            wrapper.style.display = 'none';
+            btn.setAttribute('aria-expanded','false');
+            btn.textContent = '🔗 Embed This Table';
+            sendHeightToParent();
+          }
+        });
+
+        document.addEventListener('keydown', (e)=>{
+          if (e.key === 'Escape' && wrapper.style.display === 'block') {
+            wrapper.style.display = 'none';
+            btn.setAttribute('aria-expanded','false');
+            btn.textContent = '🔗 Embed This Table';
+            btn.focus();
+            sendHeightToParent();
+          }
+        });
+      }
+    })();
+  </script>
+</section>
+
+</body>
+</html>
