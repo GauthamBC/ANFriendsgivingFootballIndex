@@ -329,6 +329,15 @@
   /* Optional: tiny breathing room so the last visible row never feels clipped
      (doesn't affect your table's internal scrolling) */
   #dw-fg .dw-card { padding-bottom: 6px; }
+  <style>
+  /* Footer sticks to viewport bottom; no extra spacing above it */
+  #dw-fg .dw-footer{
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    margin-top: 0;      /* kill the 12px gap above footer */
+    /* keeps your existing padding/border/gradient/overflow rules */
+  }
     </style>
 
     <!-- Controls -->
