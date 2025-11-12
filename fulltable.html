@@ -13,17 +13,15 @@
               --gutter-left: 0;
               --gutter-right: 0; 
               --edge-pad: 14px;
-              --table-max-h: 560px;
+              --table-max-h: 500px;
               --vbar-w: 6px; --vbar-w-hover: 8px;">
-
     <style>
       /* Guard: scope box-sizing to this block only */
       #friendsgiving-table, #friendsgiving-table * { box-sizing: border-box; }
 
       /* ===== Datawrapper-style table (Action Network Green + Mint) ===== */
-      /* ===== Flattened wrapper (no elevation) ===== */
       #dw-fg{
-        /* Brand palette */
+        /* Brand palette (mint + green) */
         --brand-50:#F6FFF9; 
         --brand-100:#DCF2EB;
         --brand-500:#56C257; 
@@ -34,22 +32,16 @@
         --bg:#ffffff;
         --text:#1f2937;
 
-        /* FLAT wrapper */
-        background:#ffffff;
-        border-radius:0;
-        padding:0;
-        border:0;
-        box-shadow:none;
-
-        /* Keep core layout behaviour */
-        box-sizing:border-box;
-        overflow-x:hidden;
-        display:block;
+        box-sizing:border-box; 
+        overflow-x:hidden; 
+        display:block; 
         max-width:100%;
+        padding-left:var(--gutter-left,var(--gutter));
+        padding-right:var(--gutter-right,var(--gutter));
         position:relative;
       }
 
-      /* Controls layout */
+      /* Controls layout — Tailgating style */
       #dw-fg .dw-controls{
         display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
         gap:12px; margin:2px 0 10px 0;
@@ -97,6 +89,7 @@
       #dw-fg .dw-top-brand{
         display:flex; align-items:center; justify-content:center;
       }
+      /* Masked, single-colour logo (exact match to header green) */
       #dw-fg .dw-top-logo{
         display:block;
         height: clamp(18px, 4.2vw, 28px);
@@ -105,6 +98,7 @@
         -webkit-mask: var(--logo-url) no-repeat center / contain;
                 mask: var(--logo-url) no-repeat center / contain;
       }
+      /* <img> fallback (near-exact match using filter) */
       #dw-fg .dw-top-logo-img{
         display:block;
         height: clamp(18px, 4.2vw, 28px);
@@ -115,6 +109,7 @@
           brightness(96%) contrast(92%);
         image-rendering:-webkit-optimize-contrast;
       }
+      /* Prefer mask when available */
       #dw-fg .dw-top-logo { display: none; }
       #dw-fg .dw-top-logo-img { display: block; }
       #dw-fg.logo-mask-ok .dw-top-logo { display: block; }
@@ -126,22 +121,17 @@
 
       /* Card & table */
       #dw-fg .dw-card { background: var(--bg); border: 0; box-shadow: none; overflow: hidden; margin: 0; width: 100%; }
-
-      /* ONE authoritative scroller: fixed height at all times */
-      #dw-fg .dw-scroll{
-        height: var(--table-max-h, 560px);
-        max-height: var(--table-max-h, 560px);
-        overflow-y: auto;
+      #dw-fg .dw-scroll {
         overflow-x: auto;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;         /* prevent parent scroll bleed */
-        -ms-overflow-style: auto;
-        scrollbar-width: thin;
-        scrollbar-color: var(--scroll-thumb) transparent;
+        max-height: var(--table-max-h, 500px);
+        -ms-overflow-style:auto; 
+        scrollbar-width:thin; 
+        scrollbar-color:var(--scroll-thumb) transparent
       }
-      #dw-fg .dw-scroll.no-scroll{ overflow-x:hidden !important; }
-
-      #dw-fg table.dw-table{
+      #dw-fg .dw-scroll.no-scroll { overflow-x: hidden !important; }
+      #dw-fg table.dw-table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
@@ -149,25 +139,16 @@
         color: var(--text);
         font-variant-numeric: tabular-nums;
         background: transparent;
-        min-width: 980px;
+        min-width: 1200px;
         table-layout: auto;
       }
 
       /* Header */
       #dw-fg thead th{
-        background: var(--brand-600) !important;
-        color:#ffffff !important;
-        font-weight:700;
-        text-align:center;
-        padding:14px 14px;
-        white-space:nowrap;
-        vertical-align:middle;
-        border:0;
-        border-bottom:1px solid rgba(255,255,255,0.18);
-        box-shadow:0 2px 4px rgba(0,0,0,0.08);
-        transition:background-color .15s, color .15s;
+        background:var(--header-bg); color:var(--header-fg,#fff); font-weight:700; text-align:center;
+        padding:12px 14px; white-space:nowrap; vertical-align:middle; border:0;
+        transition:background-color .15s, color .15s, box-shadow .15s, transform .05s;
       }
-
       #dw-fg thead th.sortable{cursor:pointer; user-select:none}
       #dw-fg thead th.sortable::after{content:"↕"; font-size:12px; opacity:.75; margin-left:8px; color:var(--header-fg,#fff)}
       #dw-fg thead th.sortable[data-sort="asc"]::after{content:"▲"}
@@ -176,16 +157,23 @@
       #dw-fg .dw-scroll.scrolled thead th{box-shadow:0 6px 10px -6px rgba(0,0,0,.25)}
       #dw-fg thead th.is-sorted{background:var(--brand-700); color:#fff; box-shadow:inset 0 -3px 0 var(--brand-100)}
 
-      #dw-fg thead th, #dw-fg tbody td { padding:12px 10px; overflow:hidden; }
-      #dw-fg thead th { white-space:nowrap; }
+      #dw-fg thead th,
+      #dw-fg tbody td { padding: 12px 10px; overflow: hidden; }
+      #dw-fg thead th { white-space: nowrap; }
+
       /* City column wrap */
       #dw-fg tbody td:nth-child(2){
-        white-space: normal;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
+        white-space: normal;          
+        word-break: keep-all;         
+        overflow-wrap: break-word;
         min-width: 160px;
-        max-width: 320px;
+        max-width: 320px;            
         line-height: 1.25;
+      }
+      #dw-fg tbody td {
+        background-clip: padding-box;
+        backface-visibility: hidden;
+        transform: translateZ(0);
       }
 
       /* Body */
@@ -209,12 +197,12 @@
       /* Empty-state row */
       #dw-fg tr.dw-empty td{text-align:center; color:#6b7280; font-style:italic; padding:18px 14px; background:linear-gradient(0deg,#fff,var(--brand-50))}
 
-      /* ===== Sticky Footer (always visible; table area handles scrolling) ===== */
+      /* ===== Sticky Gradient Footer (kept) ===== */
       #dw-fg .dw-footer{
-        position: sticky;          /* sticks to viewport bottom while #dw-fg is on screen */
+        position: sticky;
         bottom: 0;
         z-index: 20;
-        margin-top: 0;             /* no gap above footer */
+        margin-top: 0;
         padding:10px 12px 14px;
         border-top:1px solid #DCEFE6;
         background:
@@ -226,7 +214,6 @@
         box-shadow: 0 -6px 12px rgba(0,0,0,.06); 
         padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
       }
-
       #dw-fg .footer-inner{
         display:flex; align-items:center; justify-content:center; gap:12px; position:relative;
       }
@@ -264,7 +251,7 @@
       }
       #dw-fg .dw-brand-left:is(:hover,:focus-visible){color:var(--brand-100); border-color:var(--brand-100); outline:none}
 
-      /* Responsiveness */
+      /* Responsiveness (Tailgating breakpoints) */
       #dw-fg .dw-controls{
         grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
         column-gap: 12px;
@@ -291,23 +278,17 @@
           grid-template-columns:minmax(0,1fr) auto auto;
           align-items:center; column-gap:8px; row-gap:0; margin:6px 0 8px;
         }
+        #dw-fg .left, #dw-fg .center, #dw-fg .right{min-width:0;}
         #dw-fg .dw-field{width:100%; max-width:46vw;}
         #dw-fg .dw-input{width:100%; padding:6px 24px 6px 10px; height:34px; font-size:13px;}
         #dw-fg .dw-clear{width:20px; height:20px;}
         #dw-fg thead th{ font-size:13px; line-height:1.2; }
         #dw-fg .dw-top-logo,
-        #dw-fg .dw-top-logo-img{ height:18px; width:120px; }
+        #dw-fg .dw-top-logo-img{ height:18px; width:120px; } /* 18px on phones */
         #dw-fg .right{justify-content:flex-end; gap:6px;}
         #dw-fg .right .dw-status{display:none;}
         #dw-fg .dw-select{min-width:68px; height:32px; padding:6px 22px 6px 8px; font-size:13px;}
         #dw-fg .dw-btn{width:32px; height:32px; padding:0; border-radius:12px; display:inline-flex; align-items:center; justify-content:center;}
-        #dw-fg .embed-wrapper{ width: calc(100% - 16px); }
-
-        /* Mobile clamp so the table never feels tiny */
-        #dw-fg .dw-scroll{
-          height: clamp(360px, 65vh, var(--table-max-h, 560px));
-          max-height: clamp(360px, 65vh, var(--table-max-h, 560px));
-        }
       }
     </style>
 
@@ -334,7 +315,8 @@
       <div class="right">
         <label class="dw-status" for="fg-size" style="margin-right:4px;">Rows/page</label>
         <select id="fg-size" class="dw-select">
-          <option value="15" selected>15</option>   <!-- default -->
+          <option value="10" selected>10</option>   <!-- default -->
+          <option value="15">15</option>
           <option value="20">20</option>
           <option value="0">All</option>
         </select>
@@ -365,10 +347,9 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Sticky Gradient Footer with Embed -->
     <div class="dw-footer" role="contentinfo">
       <a class="dw-brand-left" href="#" aria-label="Brand name"></a>
-
       <div class="footer-inner">
         <button class="dw-embed-btn" id="fg-embed-btn" aria-controls="fg-embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
         <span class="dw-embed-confirmation" aria-hidden="true" id="fg-embed-status">Embed code copied!</span>
@@ -575,9 +556,9 @@
           /* record original order for "unsort" */
           Array.from(tb.rows).forEach((r,i)=>{ if(!r.classList.contains('dw-empty')) r.dataset.idx=i; });
 
-          /* Initialise with minimum 15 (except 0 = All) */
+          /* Initialise with default 10 (0 = All) */
           const parsedInit = parseInt(sizeSel.value, 10);
-          let pageSize = (parsedInit === 0) ? 0 : Math.max(15, (isNaN(parsedInit) ? 15 : parsedInit));
+          let pageSize = (parsedInit === 0) ? 0 : Math.max(0, (isNaN(parsedInit) ? 10 : parsedInit)); // allow 0, else number
           let page = 1;
           let filter = '';
 
@@ -617,7 +598,7 @@
               rows.forEach(r=>tb.insertBefore(r, emptyRow));
               clearSortedClasses();
               renderPage();
-              sendHeightToParent();  /* keep container/iframe in sync */
+              sendHeightToParent();
               return;
             }
 
@@ -695,7 +676,7 @@
               filter=(e.target.value||'').toLowerCase().trim();
               page=1;
               renderPage();
-              sendHeightToParent();  // re-sync parent height
+              sendHeightToParent();
             },120);
           });
           clearBtn.addEventListener('click', ()=>{
@@ -703,20 +684,14 @@
           });
           syncClearBtn();
 
-          /* ---- (No-op) Lock-scroll toggle; we always use fixed-height CSS now ---- */
-          function setLockScroll(){
-            root.classList.add('lock-scroll'); // harmless; CSS no longer depends on it
-          }
-
-          /* page size + nav (clamp to min 15 unless All=0) */
+          /* page size + nav (0 = All) */
           sizeSel.addEventListener('change', e=>{
             const raw = parseInt(e.target.value, 10);
-            const chosen = isNaN(raw) ? 15 : raw;
-            pageSize = (chosen === 0) ? 0 : Math.max(15, chosen);
+            const chosen = isNaN(raw) ? 10 : raw;
+            pageSize = (chosen === 0) ? 0 : chosen;
             page = 1;
-            setLockScroll();
             renderPage();
-            sendHeightToParent();   // ensure parent resizes correctly after size change
+            sendHeightToParent();
           });
           prevBtn.addEventListener('click', ()=>{ page--; renderPage(); sendHeightToParent(); });
           nextBtn.addEventListener('click', ()=>{ page++; renderPage(); sendHeightToParent(); });
@@ -822,7 +797,6 @@
           });
 
           /* -------------------------------- */
-          setLockScroll();   /* harmless; CSS is fixed-height now */
           renderPage();
           sendHeightToParent();
 
