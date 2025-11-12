@@ -315,6 +315,20 @@
           max-height: clamp(360px, 65vh, var(--table-max-h, 560px));
         }
       }
+        #dw-fg { position: relative; }
+
+  #dw-fg .dw-footer{
+    position: sticky;   /* stick within the page/viewport while #dw-fg is on screen */
+    bottom: 0;          /* dock to bottom */
+    z-index: 20;        /* above table */
+    margin-top: 0;      /* avoid jumpy layout around the stick point */
+    box-shadow: 0 -6px 12px rgba(0,0,0,.06); /* subtle lift */
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); /* mobile safe area */
+  }
+
+  /* Optional: tiny breathing room so the last visible row never feels clipped
+     (doesn't affect your table's internal scrolling) */
+  #dw-fg .dw-card { padding-bottom: 6px; }
     </style>
 
     <!-- Controls -->
