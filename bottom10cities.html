@@ -43,22 +43,33 @@
     .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
     .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
-    /* HORIZONTAL SCROLL WRAPPER (keeps desktop layout on mobile) */
+   /* === HORIZONTAL SCROLL WRAPPER (mobile only) ====================== */
+
+  /* Default (tablet/desktop): no horizontal scroll, no forced width */
+  .fg-compact-embed .fg-scroll { overflow-x: visible; }
+  .fg-compact-embed .fg-scroll-inner { min-width: auto; }
+
+/* Mobile: enable horizontal scroll + force a desktop-width canvas */
+  @media (max-width: 640px){
     .fg-compact-embed .fg-scroll{
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       scrollbar-gutter: stable both-edges;
     }
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px }
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
-      background:linear-gradient(90deg,var(--brand-600),var(--brand-500));
-      border-radius:999px; border:2px solid #fff;
-    }
     .fg-compact-embed .fg-scroll-inner{
-      /* This forces a “desktop width” so phones can swipe sideways */
       min-width: 900px;
     }
+  
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px; }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{
+      background: var(--brand-50); border-radius: 999px;
+    }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
+      background: linear-gradient(90deg,var(--brand-600),var(--brand-500));
+      border-radius: 999px; border: 2px solid #fff;
+    }
+  }
+
 
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
