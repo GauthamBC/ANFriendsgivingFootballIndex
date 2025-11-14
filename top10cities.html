@@ -25,19 +25,46 @@
     section.fg-compact-embed { color-scheme: light; }
     /* ================================================================= */
 
-    .fg-compact-embed{
-      --brand-50:#F6FFF9; --brand-100:#DCF2EB; --brand-300:#BCE5D6;
-      --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
-      --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
-      --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
-      --pane-max-h: min(92vh, 780px);/* overall card height inside iframe */
+/* Base styles + CSS variables */
+.fg-compact-embed{
+  --brand-50:#F6FFF9; --brand-100:#DCF2EB; --brand-300:#BCE5D6;
+  --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
+  --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
+  --hover-tint: rgba(86,194,87,.12);
+  --hover-ring:#BCE5D6;
+  --hover-shadow:0 10px 24px rgba(86,194,87,.18);
 
-      max-height: var(--pane-max-h);
-      display:flex;
-      flex-direction:column;
-      overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+
+  /* DESKTOP: grow naturally, NO SCROLL */
+  height:auto;
+  max-height:none;
+  overflow:visible;
+}
+
+/* MOBILE ONLY: scroll inside the card */
+    @media (max-width:640px){
+      .fg-compact-embed{
+        max-height:92vh;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+    
+      /* Slim green scrollbar */
+      .fg-compact-embed::-webkit-scrollbar{
+        width:8px;
+      }
+      .fg-compact-embed::-webkit-scrollbar-track{
+        background:var(--brand-50);
+        border-radius:999px;
+      }
+      .fg-compact-embed::-webkit-scrollbar-thumb{
+        background:linear-gradient(180deg,var(--brand-600),var(--brand-500));
+        border-radius:999px;
+        border:2px solid #fff;
+      }
     }
-
     /* Header */
     .fg-compact-embed .head{
       padding:14px 16px;border-bottom:1px solid var(--border)!important;color:#fff!important;
