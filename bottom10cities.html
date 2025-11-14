@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -617,17 +618,6 @@
         });
       }
     })();
-    // Force-download script
-document.getElementById("fg-download-trigger").addEventListener("click", function () {
-  const url = "https://i.postimg.cc/qp9dFwL0/Friendsgiving-Top10-static-4k-2.png?dl=1";
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Friendsgiving_Top10.png"; // force filename
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-});
   </script>
 </section>
 </body>
