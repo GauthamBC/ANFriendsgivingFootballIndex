@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Top 10 Cities — Friendsgiving Football Watch Party Index</title>
+<title>Top 10 Cities Most Suited for a Friendsgiving Football Watch Party Index</title>
 </head>
 
 <body style="margin:0;">
@@ -43,32 +43,33 @@
     .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
     .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
-    /* === HORIZONTAL SCROLL WRAPPER (mobile only) ====================== */
+   /* === HORIZONTAL SCROLL WRAPPER (mobile only) ====================== */
 
-    /* Default (tablet/desktop): no horizontal scroll, no forced width */
-    .fg-compact-embed .fg-scroll { overflow-x: visible; }
-    .fg-compact-embed .fg-scroll-inner { min-width: auto; }
+  /* Default (tablet/desktop): no horizontal scroll, no forced width */
+  .fg-compact-embed .fg-scroll { overflow-x: visible; }
+  .fg-compact-embed .fg-scroll-inner { min-width: auto; }
 
-    /* Mobile: enable horizontal scroll + force a desktop-width canvas */
-    @media (max-width: 640px){
-      .fg-compact-embed .fg-scroll{
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-gutter: stable both-edges;
-      }
-      .fg-compact-embed .fg-scroll-inner{
-        min-width: 900px;
-      }
-    
-      .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px; }
-      .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{
-        background: var(--brand-50); border-radius: 999px;
-      }
-      .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
-        background: linear-gradient(90deg,var(--brand-600),var(--brand-500));
-        border-radius: 999px; border: 2px solid #fff;
-      }
+/* Mobile: enable horizontal scroll + force a desktop-width canvas */
+  @media (max-width: 640px){
+    .fg-compact-embed .fg-scroll{
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-gutter: stable both-edges;
     }
+    .fg-compact-embed .fg-scroll-inner{
+      min-width: 900px;
+    }
+  
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px; }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{
+      background: var(--brand-50); border-radius: 999px;
+    }
+    .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
+      background: linear-gradient(90deg,var(--brand-600),var(--brand-500));
+      border-radius: 999px; border: 2px solid #fff;
+    }
+  }
+
 
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
@@ -136,6 +137,7 @@
     .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
     .fg-card-head{display:flex;align-items:center;gap:8px}
 
+    /* LABELS (small + bold) */
     .fg-label{
       font-size:14px !important;
       line-height:1.15;
@@ -144,6 +146,7 @@
       letter-spacing:.1px;
     }
 
+    /* VALUES with /100 split */
     .fg-val{display:flex;align-items:baseline;gap:2px}
     .fg-val-main{font-size:20px;font-weight:800;color:var(--ink)}
     .fg-val-max{font-size:11px;font-weight:600;color:var(--muted)}
@@ -181,32 +184,13 @@
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
       color:#fff; position:relative; overflow:visible;
     }
-    .fg-compact-embed .footer-inner{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-      position:relative;
-    }
+    .fg-compact-embed .footer-inner{display:flex;justify-content:center;align-items:center;gap:12px;position:relative}
     .fg-compact-embed .embed-btn{
-      position:absolute;
-      left:14px;
-      background:#56C257;
-      color:#fff;
-      border:1px solid #56C257;
-      border-radius:8px;
-      padding:6px 14px;
-      font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
-      cursor:pointer;
-      transition:.2s ease;
+      position:absolute;left:14px;background:#56C257;color:#fff;border:1px solid #56C257;
+      border-radius:8px;padding:6px 14px;font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;cursor:pointer;transition:.2s ease;
     }
     .fg-compact-embed .embed-btn:hover{background:#3FA94B;border-color:#3FA94B}
-    .fg-compact-embed .fg-footer img{
-      height:52px;
-      width:auto;
-      display:inline-block;
-      filter:brightness(0) invert(1);
-    }
+    .fg-compact-embed .fg-footer img{height:52px;width:auto;display:inline-block;filter:brightness(0) invert(1)}
 
     .fg-compact-embed .embed-wrapper{
       position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
@@ -225,21 +209,9 @@
 
     /* Mobile footer tweaks */
     @media (max-width:640px){
-      .fg-compact-embed .footer-inner{
-        justify-content:space-between !important;
-        padding:0 10px;
-        gap:8px;
-      }
-      .fg-compact-embed .embed-btn{
-        position:static !important;
-        padding:6px 10px;
-        font-size:12px;
-        line-height:1.2;
-        flex-shrink:0;
-      }
-      .fg-compact-embed .fg-footer img{
-        height:44px;
-      }
+      .fg-compact-embed .footer-inner{ justify-content:space-between !important; padding:0 10px; gap:8px; }
+      .fg-compact-embed .embed-btn{ position:static !important; padding:6px 10px; font-size:12px; line-height:1.2; flex-shrink:0; }
+      .fg-compact-embed .fg-footer img{ height:44px; }
     }
 
     /* Table header row (sortable) */
@@ -262,49 +234,24 @@
       }
     }
 
+    /* Rank + City left; Index centred */
     .fg-compact-embed .table-header .h-rank,
-    .fg-compact-embed .table-header .h-city {
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-    }
+    .fg-compact-embed .table-header .h-city { display:flex; align-items:center; justify-content:flex-start; }
     .fg-compact-embed .table-header .h-city { padding-left:6px; }
-    .fg-compact-embed .table-header .h-index {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
+    .fg-compact-embed .table-header .h-index { display:flex; align-items:center; justify-content:center; text-align:center; }
 
     .fg-compact-embed .sortable{ cursor:pointer; user-select:none; position:relative; }
-    .fg-compact-embed .sortable:focus{
-      outline:2px solid var(--brand-300);
-      outline-offset:2px;
-      border-radius:6px;
-    }
+    .fg-compact-embed .sortable:focus{ outline:2px solid var(--brand-300); outline-offset:2px; border-radius:6px; }
     .fg-compact-embed .sortable::after{
-      content:"";
-      margin-left:8px;
-      border:5px solid transparent;
-      opacity:.35;
-      border-top-color:var(--brand-700);
-      transform:translateY(2px);
+      content:""; margin-left:8px; border:5px solid transparent; opacity:.35; border-top-color:var(--brand-700); transform:translateY(2px);
     }
-    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{
-      border-bottom-color:var(--brand-700);
-      transform:translateY(-2px) rotate(180deg);
-      opacity:1;
-    }
-    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{
-      border-top-color:var(--brand-700);
-      transform:translateY(2px);
-      opacity:1;
-    }
+    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{ border-bottom-color:var(--brand-700); transform:translateY(-2px) rotate(180deg); opacity:1; }
+    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{ border-top-color:var(--brand-700); transform:translateY(2px); opacity:1; }
   </style>
 
   <!-- HEADER -->
   <div class="head">
-    <h3 id="fg-compact-embed-title" class="title">Top 10 Cities for a Friendsgiving Football Watch Party</h3>
+    <h3 id="fg-compact-embed-title" class="title">Top 10 Cities Most Suited for a Friendsgiving Football Watch Party Index</h3>
     <p class="fg-sub"><em>Click a city to view its <strong>Sports Access Score</strong>, <strong>Affordability Score</strong>, and <strong>Atmosphere Score</strong></em></p>
   </div>
 
@@ -328,17 +275,10 @@
   <!-- FOOTER -->
   <div class="fg-footer">
     <div class="footer-inner">
-      <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">
-        🔗 Embed This Table
-      </button>
-      <img
-        src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
-        alt="The Action Network logo"
-        width="120"
-        height="auto"
-        loading="lazy"
-        decoding="async"
-      />
+      <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
+      <img src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
+           alt="The Action Network logo"
+           width="120" height="auto" loading="lazy" decoding="async" />
     </div>
 
     <div id="embed-wrapper" class="embed-wrapper" role="dialog" aria-modal="false" aria-labelledby="embed-title">
