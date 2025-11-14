@@ -14,9 +14,6 @@
          box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(86,194,87,.10);">
   <style>
     /* === SCOPING PATCH ============================================== */
-    html, body{
-      height:100%;
-    }
     section.fg-compact-embed, section.fg-compact-embed * {
       box-sizing: border-box;
       font-family: inherit;
@@ -25,46 +22,14 @@
     section.fg-compact-embed { color-scheme: light; }
     /* ================================================================= */
 
-/* Base styles + CSS variables */
-.fg-compact-embed{
-  --brand-50:#F6FFF9; --brand-100:#DCF2EB; --brand-300:#BCE5D6;
-  --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
-  --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
-  --hover-tint: rgba(86,194,87,.12);
-  --hover-ring:#BCE5D6;
-  --hover-shadow:0 10px 24px rgba(86,194,87,.18);
-
-  display:flex;
-  flex-direction:column;
-
-  /* DESKTOP: grow naturally, NO SCROLL */
-  height:auto;
-  max-height:none;
-  overflow:visible;
-}
-
-/* MOBILE ONLY: scroll inside the card */
-    @media (max-width:640px){
-      .fg-compact-embed{
-        max-height:92vh;
-        overflow-y:auto;
-        -webkit-overflow-scrolling:touch;
-      }
-    
-      /* Slim green scrollbar */
-      .fg-compact-embed::-webkit-scrollbar{
-        width:8px;
-      }
-      .fg-compact-embed::-webkit-scrollbar-track{
-        background:var(--brand-50);
-        border-radius:999px;
-      }
-      .fg-compact-embed::-webkit-scrollbar-thumb{
-        background:linear-gradient(180deg,var(--brand-600),var(--brand-500));
-        border-radius:999px;
-        border:2px solid #fff;
-      }
+    .fg-compact-embed{
+      --brand-50:#F6FFF9; --brand-100:#DCF2EB; --brand-300:#BCE5D6;
+      --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
+      --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
+      --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
+      --pane-max-h: min(72vh, 640px); /* used only for mobile table scroll */
     }
+
     /* Header */
     .fg-compact-embed .head{
       padding:14px 16px;border-bottom:1px solid var(--border)!important;color:#fff!important;
@@ -72,13 +37,19 @@
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
       text-align:center;
-
-      position:sticky;
-      top:0;
-      z-index:20;
     }
-    .fg-compact-embed .title{margin:0 0 2px;font-size:clamp(16px,2.2vw,20px);line-height:1.2;font-weight:800;color:#fff!important}
-    .fg-compact-embed .sub{margin:0;color:rgba(255,255,255,.92)!important;font-size:12px}
+    .fg-compact-embed .title{
+      margin:0 0 2px;
+      font-size:clamp(16px,2.2vw,20px);
+      line-height:1.2;
+      font-weight:800;
+      color:#fff!important;
+    }
+    .fg-compact-embed .sub{
+      margin:0;
+      color:rgba(255,255,255,.92)!important;
+      font-size:12px;
+    }
     .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
     .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
@@ -126,19 +97,45 @@
 
     /* Keep desktop grid on mobile */
     @media (max-width:640px){
-      .fg-compact-embed.keep-desktop .row{ grid-template-columns:40px 1fr minmax(240px,48%); gap:50px; }
+      .fg-compact-embed.keep-desktop .row{
+        grid-template-columns:40px 1fr minmax(240px,48%);
+        gap:50px;
+      }
       .fg-compact-embed.keep-desktop .metric{ grid-column:auto; }
     }
 
-    .fg-compact-embed .rank{display:flex;align-items:center;justify-content:center;font-weight:800;color:#475a50}
-    .fg-compact-embed .place{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
-    .fg-compact-embed .chip{width:26px;height:18px;border-radius:4px;overflow:hidden;border:1px solid #cfe4da;background:#fff;flex-shrink:0}
-    .fg-compact-embed .chip img{width:100%;height:100%;object-fit:contain;display:block}
+    .fg-compact-embed .rank{
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;color:#475a50;
+    }
+    .fg-compact-embed .place{
+      display:flex;align-items:center;gap:10px;
+      font-weight:800;color:var(--ink);
+    }
+    .fg-compact-embed .chip{
+      width:26px;height:18px;border-radius:4px;overflow:hidden;
+      border:1px solid #cfe4da;background:#fff;flex-shrink:0;
+    }
+    .fg-compact-embed .chip img{
+      width:100%;height:100%;object-fit:contain;display:block;
+    }
 
     /* Metric bar (top-level index) */
-    .fg-compact-embed .metric{position:relative;height:28px;border-radius:999px;background:rgba(86,194,87,.10)!important;overflow:hidden}
-    .fg-compact-embed .bar{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
-    .fg-compact-embed .val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:#0e1a12!important;background:#fff!important;border:2px solid #e6e9ed!important;border-radius:999px;padding:2px 8px}
+    .fg-compact-embed .metric{
+      position:relative;height:28px;border-radius:999px;
+      background:rgba(86,194,87,.10)!important;overflow:hidden;
+    }
+    .fg-compact-embed .bar{
+      position:absolute;inset:0 auto 0 0;border-radius:999px;
+      background:linear-gradient(90deg,var(--brand-600),var(--brand-500))!important;
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);
+    }
+    .fg-compact-embed .val{
+      position:absolute;right:6px;top:50%;transform:translateY(-50%);
+      font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;
+      color:#0e1a12!important;background:#fff!important;border:2px solid #e6e9ed!important;
+      border-radius:999px;padding:2px 8px;
+    }
 
     /* Rank-based gradient dark → light (1–10) */
     .fg-compact-embed .row[data-rank="1"] .bar{background:linear-gradient(90deg,#1F5D28,#56C257)!important}
@@ -158,7 +155,10 @@
       max-height:0;opacity:0;overflow:hidden;transform:translateY(-6px);
       transition:max-height .28s ease, opacity .28s ease, transform .28s ease, border-width .18s ease, padding .18s ease, margin .18s ease;
     }
-    .fg-details.open{margin:8px 0 12px;padding:12px;border-width:1px;max-height:420px;opacity:1;transform:translateY(0)}
+    .fg-details.open{
+      margin:8px 0 12px;padding:12px;border-width:1px;
+      max-height:420px;opacity:1;transform:translateY(0);
+    }
     .fg-metrics-title {
       margin: 0 0 10px;
       font-weight: 900 !important;
@@ -166,12 +166,19 @@
       color: var(--brand-700) !important;
       display: flex; align-items: center; gap: 8px;
     }
-    .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .fg-metrics{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
+    }
     @media (max-width:640px){
-      .fg-compact-embed.keep-desktop .fg-metrics{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .fg-compact-embed.keep-desktop .fg-metrics{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+      }
     }
 
-    .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
+    .fg-card{
+      background:#fff;border:1px solid var(--border);border-radius:10px;
+      padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px;
+    }
     .fg-card-head{display:flex;align-items:center;gap:8px}
 
     .fg-label{
@@ -187,13 +194,38 @@
     .fg-val-max{font-size:11px;font-weight:600;color:var(--muted)}
 
     .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
-    .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
+    .fg-bar > span{
+      display:block;height:100%;width:0;border-radius:999px;
+      background:linear-gradient(90deg,var(--brand-600),var(--brand-500));
+      transition:width .5s ease;
+    }
 
     /* Icon sizing */
     .fg-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
 
-    /* Vertical scroll now handled by the card itself; leaving this note
-       so we remember not to re-add overflow to .table. */
+    /* Sleek internal vertical scroll (MOBILE ONLY) */
+    @media (max-width:640px){
+      .fg-compact-embed .table{
+        max-height: var(--pane-max-h);
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior:auto;
+        scrollbar-gutter:stable both-edges;
+      }
+      .fg-compact-embed .table::-webkit-scrollbar{ width:10px; height:8px }
+      .fg-compact-embed .table::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
+      .fg-compact-embed .table::-webkit-scrollbar-thumb{
+        background:linear-gradient(180deg,var(--brand-600),var(--brand-500));
+        border-radius:999px; border:2px solid #fff;
+      }
+      .fg-compact-embed .table::-webkit-scrollbar-thumb:hover{
+        background:linear-gradient(180deg,var(--brand-700),var(--brand-600));
+      }
+      .fg-compact-embed .table{
+        scrollbar-width:thin;
+        scrollbar-color:var(--brand-600) var(--brand-50);
+      }
+    }
 
     /* Footer */
     .fg-compact-embed .fg-footer {
@@ -205,34 +237,25 @@
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
       color:#fff;
-      position:sticky;
-      bottom:0;
-      z-index:20;
+      position:relative;
       overflow:visible;
     }
     .fg-compact-embed .footer-inner{
       display:grid;
-      grid-template-columns:1fr auto 1fr; /* left = embed, centre = logo, right = download */
+      grid-template-columns:1fr auto 1fr; /* left = embed, center = logo, right = download */
       align-items:center;
       padding:0 14px;
       gap:12px;
     }
-    
-    /* Export-only layout: centre the logo when buttons are hidden */
+
+    /* Export-only layout: center logo when buttons are hidden */
     .fg-compact-embed.exporting .footer-inner{
       grid-template-columns: 1fr;
       justify-items: center;
     }
-    
-    /* Hide the embed popup in export */
-    .fg-compact-embed.exporting .embed-wrapper{
-      display: none !important;
-    }
-    
-    /* Ensure logo is centred across full footer in export */
     .fg-compact-embed.exporting .fg-footer img{
-      grid-column: 1 / -1;
-      margin: 0 auto;
+      grid-column:1 / -1;
+      margin:0 auto;
     }
 
     .fg-compact-embed .embed-btn{
@@ -246,7 +269,10 @@
       cursor:pointer;
       transition:.2s ease;
     }
-    .fg-compact-embed .embed-btn:hover{background:#3FA94B;border-color:#3FA94B}
+    .fg-compact-embed .embed-btn:hover{
+      background:#3FA94B;
+      border-color:#3FA94B;
+    }
 
     .fg-compact-embed .download-btn{
       justify-self:end;
@@ -270,7 +296,7 @@
     .fg-compact-embed.exporting .chip{
       display:none !important;
     }
-    
+
     .fg-compact-embed .fg-footer img{
       height:52px;
       width:auto;
@@ -281,17 +307,24 @@
 
     .fg-compact-embed .embed-wrapper{
       position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
-      width:min(600px, calc(100% - 24px));display:none;padding:16px 20px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;
+      width:min(600px, calc(100% - 24px));display:none;
+      padding:16px 20px;border:1px solid #ccc;border-radius:12px;
+      background:#fff;color:#111;
       box-shadow:0 12px 28px rgba(0,0,0,.18);z-index:1000;
     }
     .fg-compact-embed .embed-wrapper::after{
       content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-8px;
-      border:8px solid transparent; border-top-color:#fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.08));
+      border:8px solid transparent; border-top-color:#fff;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.08));
     }
-    .fg-compact-embed #copy-status{display:none;color:#008000;font-size:13px;margin-top:6px}
+    .fg-compact-embed #copy-status{
+      display:none;color:#008000;font-size:13px;margin-top:6px;
+    }
     .fg-compact-embed .embed-wrapper textarea{
-      width:100%;height:140px;font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
-      color:#111;background:#fff;padding:10px 12px;border:1px solid #ddd;border-radius:8px;resize:none;
+      width:100%;height:140px;
+      font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      color:#111;background:#fff;
+      padding:10px 12px;border:1px solid #ddd;border-radius:8px;resize:none;
     }
 
     /* Mobile footer tweaks */
@@ -307,10 +340,7 @@
         line-height:1.2;
       }
       .fg-compact-embed .fg-footer img{
-        height:52px;
-        width:auto;
-        display:block;
-        margin:0 auto;
+        height:44px;
       }
     }
 
@@ -335,23 +365,49 @@
     }
 
     .fg-compact-embed .table-header .h-rank,
-    .fg-compact-embed .table-header .h-city { display:flex; align-items:center; justify-content:flex-start; }
-    .fg-compact-embed .table-header .h-city { padding-left:6px; }
-    .fg-compact-embed .table-header .h-index { display:flex; align-items:center; justify-content:center; text-align:center; }
-
-    .fg-compact-embed .sortable{ cursor:pointer; user-select:none; position:relative; }
-    .fg-compact-embed .sortable:focus{ outline:2px solid var(--brand-300); outline-offset:2px; border-radius:6px; }
-    .fg-compact-embed .sortable::after{
-      content:""; margin-left:8px; border:5px solid transparent; opacity:.35; border-top-color:var(--brand-700); transform:translateY(2px);
+    .fg-compact-embed .table-header .h-city {
+      display:flex; align-items:center; justify-content:flex-start;
     }
-    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{ border-bottom-color:var(--brand-700); transform:translateY(-2px) rotate(180deg); opacity:1; }
-    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{ border-top-color:var(--brand-700); transform:translateY(2px); opacity:1; }
+    .fg-compact-embed .table-header .h-city {
+      padding-left:6px;
+    }
+    .fg-compact-embed .table-header .h-index {
+      display:flex; align-items:center; justify-content:center; text-align:center;
+    }
+
+    .fg-compact-embed .sortable{
+      cursor:pointer; user-select:none; position:relative;
+    }
+    .fg-compact-embed .sortable:focus{
+      outline:2px solid var(--brand-300);
+      outline-offset:2px; border-radius:6px;
+    }
+    .fg-compact-embed .sortable::after{
+      content:""; margin-left:8px; border:5px solid transparent;
+      opacity:.35; border-top-color:var(--brand-700); transform:translateY(2px);
+    }
+    .fg-compact-embed .sortable[data-sort-dir="asc"]::after{
+      border-bottom-color:var(--brand-700);
+      transform:translateY(-2px) rotate(180deg);
+      opacity:1;
+    }
+    .fg-compact-embed .sortable[data-sort-dir="desc"]::after{
+      border-top-color:var(--brand-700);
+      transform:translateY(2px);
+      opacity:1;
+    }
   </style>
 
   <!-- HEADER -->
   <div class="head">
-    <h3 id="fg-compact-embed-title" class="title">Top 10 Cities for a Friendsgiving Football Watch Party</h3>
-    <p class="fg-sub"><em>Click a city to view its <strong>Sports Access Score</strong>, <strong>Affordability Score</strong>, and <strong>Atmosphere Score</strong></em></p>
+    <h3 id="fg-compact-embed-title" class="title">
+      Top 10 Cities for a Friendsgiving Football Watch Party
+    </h3>
+    <p class="fg-sub">
+      <em>
+        Click a city to view its <strong>Sports Access Score</strong>, <strong>Affordability Score</strong>, and <strong>Atmosphere Score</strong>
+      </em>
+    </p>
   </div>
 
   <!-- HORIZONTAL SCROLL AREA (keeps desktop layout on mobile) -->
@@ -360,9 +416,15 @@
 
       <!-- TABLE HEADER (sortable labels) -->
       <div class="table-header" role="row">
-        <div class="h-rank sortable"  role="button" tabindex="0" aria-label="Sort by Rank" data-sort-key="rank" data-sort-dir=""><span>Rank</span></div>
-        <div class="h-city sortable"  role="button" tabindex="0" aria-label="Sort by City" data-sort-key="city" data-sort-dir=""><span>City</span></div>
-        <div class="h-index sortable" role="button" tabindex="0" aria-label="Sort by Friendsgiving Football Index" data-sort-key="index" data-sort-dir=""><span>Friendsgiving Football Index (0–100)</span></div>
+        <div class="h-rank sortable"  role="button" tabindex="0" aria-label="Sort by Rank" data-sort-key="rank" data-sort-dir="">
+          <span>Rank</span>
+        </div>
+        <div class="h-city sortable"  role="button" tabindex="0" aria-label="Sort by City" data-sort-key="city" data-sort-dir="">
+          <span>City</span>
+        </div>
+        <div class="h-index sortable" role="button" tabindex="0" aria-label="Sort by Friendsgiving Football Index" data-sort-key="index" data-sort-dir="">
+          <span>Friendsgiving Football Index (0–100)</span>
+        </div>
       </div>
 
       <!-- TABLE BODY -->
@@ -399,7 +461,7 @@
       <textarea id="embed-code" readonly>&lt;iframe 
   src="https://gauthambc.github.io/ANFriendsgivingFootballIndex/top10cities.html"
   title="Top 10 Cities for a Friendsgiving Football Watch Party"
-  width="100%" height="750"
+  width="100%" height="880"
   scrolling="no"
   style="border:0;" loading="lazy"&gt;&lt;/iframe&gt;</textarea>
       <p id="copy-status">Embed code copied!</p>
@@ -470,7 +532,10 @@
       function sendHeightToParent() {
         try {
           const height = document.body.scrollHeight;
-          window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+          window.parent.postMessage(
+            { type: "resize-iframe", height: height, src: window.location.href },
+            "*"
+          );
         } catch (e) {}
       }
 
@@ -542,14 +607,19 @@
         row.innerHTML = `
           <div class="rank">${item.rank}</div>
           <div class="place">
-            <span class="chip"><img loading="lazy" decoding="async" alt="${item.state} state flag" width="26" height="18" src="${flagURL}"></span>
+            <span class="chip">
+              <img loading="lazy" decoding="async" alt="${item.state} state flag" width="26" height="18" src="${flagURL}">
+            </span>
             <span>${item.city}</span>
           </div>
-          <div class="metric"><span class="bar" style="width:${pct.toFixed(2)}%"></span><span class="val">${valText}</span></div>
+          <div class="metric">
+            <span class="bar" style="width:${pct.toFixed(2)}%"></span>
+            <span class="val">${valText}</span>
+          </div>
         `;
 
         const details = makeDetails(item, flagURL);
-        row._fgDetails = details; // store reference
+        row._fgDetails = details;
 
         function open(){
           // close any other open rows
@@ -608,7 +678,7 @@
         data.forEach(item=>{
           const {row, details} = makeRow(item);
 
-          // Top 5: expand BELOW row; Bottom 5: expand ABOVE row
+          // Top 5: expand BELOW row; bottom 5: expand ABOVE row
           if (item.rank <= 5) {
             table.appendChild(row);
             table.appendChild(details);
@@ -636,14 +706,19 @@
         const collator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
         arr.sort((a,b)=>{
           let res = 0;
-          if (key === 'city') res = collator.compare(a.city, b.city);
-          else if (key === 'rank' || key === 'index') res = (a[key] < b[key]) ? -1 : (a[key] > b[key]) ? 1 : 0;
+          if (key === 'city') {
+            res = collator.compare(a.city, b.city);
+          } else if (key === 'rank' || key === 'index') {
+            res = (a[key] < b[key]) ? -1 : (a[key] > b[key]) ? 1 : 0;
+          }
           return dir === 'asc' ? res : -res;
         });
         return arr;
       }
 
-      function clearHeaderStates(){ headers.forEach(h=> h.setAttribute('data-sort-dir','')); }
+      function clearHeaderStates(){
+        headers.forEach(h=> h.setAttribute('data-sort-dir',''));
+      }
 
       function onHeaderActivate(el){
         const key = el.getAttribute('data-sort-key');
@@ -657,10 +732,14 @@
 
       headers.forEach(h=>{
         h.addEventListener('click', ()=> onHeaderActivate(h));
-        h.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); onHeaderActivate(h); } });
+        h.addEventListener('keydown', (e)=>{
+          if(e.key==='Enter' || e.key===' '){
+            e.preventDefault();
+            onHeaderActivate(h);
+          }
+        });
       });
 
-      /* Scroll chaining helper removed – card now handles its own scroll */
       /* Footer embed popup & copy */
       const btn     = document.getElementById('copy-embed-btn');
       const wrapper = document.getElementById('embed-wrapper');
@@ -678,7 +757,9 @@
             try { document.execCommand('copy'); } catch(e) {}
             status.style.display = 'block';
             setTimeout(() => status.style.display = 'none', 2500);
-          } else { btn.focus(); }
+          } else {
+            btn.focus();
+          }
           sendHeightToParent();
         });
 
@@ -721,7 +802,7 @@ document.addEventListener("DOMContentLoaded", function () {
     target.classList.add("exporting");
 
     html2canvas(target, {
-      scale: 4,            // 4× scale for high resolution
+      scale: 4,
       useCORS: true,
       backgroundColor: null
     }).then(canvas => {
