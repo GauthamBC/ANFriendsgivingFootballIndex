@@ -14,6 +14,9 @@
          box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 16px rgba(86,194,87,.10);">
   <style>
     /* === SCOPING PATCH ============================================== */
+    html, body{
+      height:100%;
+    }
     section.fg-compact-embed, section.fg-compact-embed * {
       box-sizing: border-box;
       font-family: inherit;
@@ -27,7 +30,12 @@
       --brand-500:#56C257; --brand-600:#3FA94B; --brand-700:#2E8538; --brand-900:#1F5D28;
       --ink:#181a1f; --muted:#666b73; --border:#DCEFE6;
       --hover-tint: rgba(86,194,87,.12); --hover-ring:#BCE5D6; --hover-shadow:0 10px 24px rgba(86,194,87,.18);
-      --pane-max-h: min(92vh, 780px);/* keeps footer visible on mobile */
+      --pane-max-h: min(92vh, 780px);/* overall card height inside iframe */
+
+      max-height: var(--pane-max-h);
+      display:flex;
+      flex-direction:column;
+      overflow-y:auto;
     }
 
     /* Header */
@@ -37,39 +45,42 @@
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
       text-align:center;
+
+      position:sticky;
+      top:0;
+      z-index:20;
     }
     .fg-compact-embed .title{margin:0 0 2px;font-size:clamp(16px,2.2vw,20px);line-height:1.2;font-weight:800;color:#fff!important}
     .fg-compact-embed .sub{margin:0;color:rgba(255,255,255,.92)!important;font-size:12px}
     .fg-sub{margin:0;color:rgba(255,255,255,.92);font-size:12px}
     .fg-sub strong { color:#ECFFF4!important; font-weight:900 }
 
-   /* === HORIZONTAL SCROLL WRAPPER (mobile only) ====================== */
+    /* === HORIZONTAL SCROLL WRAPPER (mobile only) ====================== */
 
-  /* Default (tablet/desktop): no horizontal scroll, no forced width */
-  .fg-compact-embed .fg-scroll { overflow-x: visible; }
-  .fg-compact-embed .fg-scroll-inner { min-width: auto; }
+    /* Default (tablet/desktop): no horizontal scroll, no forced width */
+    .fg-compact-embed .fg-scroll { overflow-x: visible; }
+    .fg-compact-embed .fg-scroll-inner { min-width: auto; }
 
-/* Mobile: enable horizontal scroll + force a desktop-width canvas */
-  @media (max-width: 640px){
-    .fg-compact-embed .fg-scroll{
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-gutter: stable both-edges;
+    /* Mobile: enable horizontal scroll + force a desktop-width canvas */
+    @media (max-width: 640px){
+      .fg-compact-embed .fg-scroll{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-gutter: stable both-edges;
+      }
+      .fg-compact-embed .fg-scroll-inner{
+        min-width: 900px;
+      }
+    
+      .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px; }
+      .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{
+        background: var(--brand-50); border-radius: 999px;
+      }
+      .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
+        background: linear-gradient(90deg,var(--brand-600),var(--brand-500));
+        border-radius: 999px; border: 2px solid #fff;
+      }
     }
-    .fg-compact-embed .fg-scroll-inner{
-      min-width: 900px;
-    }
-  
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar{ height:10px; }
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar-track{
-      background: var(--brand-50); border-radius: 999px;
-    }
-    .fg-compact-embed .fg-scroll::-webkit-scrollbar-thumb{
-      background: linear-gradient(90deg,var(--brand-600),var(--brand-500));
-      border-radius: 999px; border: 2px solid #fff;
-    }
-  }
-
 
     /* Table / rows */
     .fg-compact-embed .table{padding:10px 12px}
@@ -86,7 +97,7 @@
       transform:scale(1.01);box-shadow:var(--hover-shadow);border-color:var(--hover-ring)!important;
     }
 
-    /* ⛔️ Original mobile stack rule disabled for keep-desktop */
+    /* Keep desktop grid on mobile */
     @media (max-width:640px){
       .fg-compact-embed.keep-desktop .row{ grid-template-columns:40px 1fr minmax(240px,48%); gap:50px; }
       .fg-compact-embed.keep-desktop .metric{ grid-column:auto; }
@@ -129,7 +140,6 @@
       display: flex; align-items: center; gap: 8px;
     }
     .fg-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    /* Keep 3-column metrics on phones when keep-desktop is set */
     @media (max-width:640px){
       .fg-compact-embed.keep-desktop .fg-metrics{ grid-template-columns:repeat(3,minmax(0,1fr)); }
     }
@@ -137,7 +147,6 @@
     .fg-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;display:grid;grid-template-rows:auto auto auto;gap:8px}
     .fg-card-head{display:flex;align-items:center;gap:8px}
 
-    /* LABELS (small + bold, as requested) */
     .fg-label{
       font-size:14px !important;
       line-height:1.15;
@@ -146,7 +155,6 @@
       letter-spacing:.1px;
     }
 
-    /* VALUES with /100 split */
     .fg-val{display:flex;align-items:baseline;gap:2px}
     .fg-val-main{font-size:20px;font-weight:800;color:var(--ink)}
     .fg-val-max{font-size:11px;font-weight:600;color:var(--muted)}
@@ -154,24 +162,11 @@
     .fg-bar{height:8px;border-radius:999px;background:rgba(86,194,87,.18);overflow:hidden}
     .fg-bar > span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--brand-600),var(--brand-500));transition:width .5s ease}
 
-    /* NEW: icon sizing */
+    /* Icon sizing */
     .fg-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
 
-    /* Sleek internal vertical scroll (for long tables) */
-    .fg-compact-embed .table{
-      max-height: var(--pane-max-h);
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      overscroll-behavior:auto;
-      scrollbar-gutter:stable both-edges;
-    }
-    .fg-compact-embed .table::-webkit-scrollbar{ width:10px; height:8px }
-    .fg-compact-embed .table::-webkit-scrollbar-track{ background:var(--brand-50); border-radius:999px }
-    .fg-compact-embed .table::-webkit-scrollbar-thumb{
-      background:linear-gradient(180deg,var(--brand-600),var(--brand-500)); border-radius:999px; border:2px solid #fff;
-    }
-    .fg-compact-embed .table::-webkit-scrollbar-thumb:hover{ background:linear-gradient(180deg,var(--brand-700),var(--brand-600)) }
-    .fg-compact-embed .table{ scrollbar-width:thin; scrollbar-color:var(--brand-600) var(--brand-50) }
+    /* Vertical scroll now handled by the card itself; leaving this note
+       so we remember not to re-add overflow to .table. */
 
     /* Footer */
     .fg-compact-embed .fg-footer {
@@ -182,15 +177,80 @@
       background:
         radial-gradient(120% 140% at 85% 10%, rgba(255,255,255,.10) 0%, transparent 60%),
         linear-gradient(90deg,var(--brand-900) 0%,var(--brand-600) 45%,var(--brand-500) 100%)!important;
-      color:#fff; position:relative; overflow:visible;
+      color:#fff;
+      position:sticky;
+      bottom:0;
+      z-index:20;
+      overflow:visible;
     }
-    .fg-compact-embed .footer-inner{display:flex;justify-content:center;align-items:center;gap:12px;position:relative}
+    .fg-compact-embed .footer-inner{
+      display:grid;
+      grid-template-columns:1fr auto 1fr; /* left = embed, centre = logo, right = download */
+      align-items:center;
+      padding:0 14px;
+      gap:12px;
+    }
+    
+    /* Export-only layout: centre the logo when buttons are hidden */
+    .fg-compact-embed.exporting .footer-inner{
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    
+    /* Hide the embed popup in export */
+    .fg-compact-embed.exporting .embed-wrapper{
+      display: none !important;
+    }
+    
+    /* Ensure logo is centred across full footer in export */
+    .fg-compact-embed.exporting .fg-footer img{
+      grid-column: 1 / -1;
+      margin: 0 auto;
+    }
+
     .fg-compact-embed .embed-btn{
-      position:absolute;left:14px;background:#56C257;color:#fff;border:1px solid #56C257;
-      border-radius:8px;padding:6px 14px;font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;cursor:pointer;transition:.2s ease;
+      justify-self:start;
+      background:#56C257;
+      color:#fff;
+      border:1px solid #56C257;
+      border-radius:8px;
+      padding:6px 14px;
+      font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+      cursor:pointer;
+      transition:.2s ease;
     }
     .fg-compact-embed .embed-btn:hover{background:#3FA94B;border-color:#3FA94B}
-    .fg-compact-embed .fg-footer img{height:52px;width:auto;display:inline-block;filter:brightness(0) invert(1)}
+
+    .fg-compact-embed .download-btn{
+      justify-self:end;
+      background:#56C257;
+      color:#fff;
+      border:1px solid #56C257;
+      border-radius:8px;
+      padding:6px 14px;
+      font:13px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .fg-compact-embed .download-btn:hover{
+      background:#3FA94B;
+      border-color:#3FA94B;
+    }
+
+    /* Hide action buttons AND flag chips when exporting */
+    .fg-compact-embed.exporting .embed-btn,
+    .fg-compact-embed.exporting .download-btn,
+    .fg-compact-embed.exporting .chip{
+      display:none !important;
+    }
+    
+    .fg-compact-embed .fg-footer img{
+      height:52px;
+      width:auto;
+      display:block;
+      margin:0 auto;
+      filter:brightness(0) invert(1);
+    }
 
     .fg-compact-embed .embed-wrapper{
       position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
@@ -209,9 +269,22 @@
 
     /* Mobile footer tweaks */
     @media (max-width:640px){
-      .fg-compact-embed .footer-inner{ justify-content:space-between !important; padding:0 10px; gap:8px; }
-      .fg-compact-embed .embed-btn{ position:static !important; padding:6px 10px; font-size:12px; line-height:1.2; flex-shrink:0; }
-      .fg-compact-embed .fg-footer img{ height:44px; }
+      .fg-compact-embed .footer-inner{
+        padding:0 10px;
+        gap:8px;
+      }
+      .fg-compact-embed .embed-btn,
+      .fg-compact-embed .download-btn{
+        padding:6px 10px;
+        font-size:12px;
+        line-height:1.2;
+      }
+      .fg-compact-embed .fg-footer img{
+        height:52px;
+        width:auto;
+        display:block;
+        margin:0 auto;
+      }
     }
 
     /* Table header row (sortable) */
@@ -234,7 +307,6 @@
       }
     }
 
-    /* Rank + City left; Index centred */
     .fg-compact-embed .table-header .h-rank,
     .fg-compact-embed .table-header .h-city { display:flex; align-items:center; justify-content:flex-start; }
     .fg-compact-embed .table-header .h-city { padding-left:6px; }
@@ -275,13 +347,28 @@
   <!-- FOOTER -->
   <div class="fg-footer">
     <div class="footer-inner">
-      <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">🔗 Embed This Table</button>
-      <img src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
-           alt="The Action Network logo"
-           width="120" height="auto" loading="lazy" decoding="async" />
+      <!-- Left: Embed button -->
+      <button id="copy-embed-btn" class="embed-btn" aria-controls="embed-wrapper" aria-expanded="false">
+        🔗 Embed This Table
+      </button>
+
+      <!-- Centre: Action Network logo -->
+      <img
+        src="https://i.postimg.cc/x1nG117r/AN-final2-logo.png"
+        alt="The Action Network logo"
+        width="120"
+        height="auto"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <!-- Right: Download image button -->
+      <button id="download-img-btn" class="download-btn">
+        ⬇️ Download Image
+      </button>
     </div>
 
-    <div id="embed-wrapper" class="embed-wrapper" role="dialog" aria-modal="false" aria-labelledby="embed-title">
+    <div id="embed-wrapper" class="embed-wrapper" role="dialog" aria-modal="false">
       <textarea id="embed-code" readonly>&lt;iframe 
   src="https://gauthambc.github.io/ANFriendsgivingFootballIndex/top10cities.html"
   title="Top 10 Cities for a Friendsgiving Football Watch Party"
@@ -351,6 +438,14 @@
       };
 
       const table = document.getElementById('fg-table');
+
+      /* Auto-resize messaging to parent (for iframe) */
+      function sendHeightToParent() {
+        try {
+          const height = document.body.scrollHeight;
+          window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
+        } catch (e) {}
+      }
 
       function makeDetails(item, flagURL){
         const d = document.createElement('div');
@@ -427,19 +522,14 @@
         `;
 
         const details = makeDetails(item, flagURL);
-
-        function sendHeightToParent() {
-          try {
-            const height = document.body.scrollHeight;
-            window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
-          } catch (e) {}
-        }
+        row._fgDetails = details; // store reference
 
         function open(){
+          // close any other open rows
           document.querySelectorAll('.fg-compact-embed .row[aria-expanded="true"]').forEach(r=>{
             if(r!==row){
               r.setAttribute('aria-expanded','false');
-              const d = r.nextElementSibling;
+              const d = r._fgDetails;
               if(d && d.classList.contains('fg-details')){
                 d.classList.remove('open');
                 d.setAttribute('aria-hidden','true');
@@ -490,18 +580,17 @@
         table.innerHTML = "";
         data.forEach(item=>{
           const {row, details} = makeRow(item);
-          table.appendChild(row);
-          table.appendChild(details);
+
+          // Top 5: expand BELOW row; Bottom 5: expand ABOVE row
+          if (item.rank <= 5) {
+            table.appendChild(row);
+            table.appendChild(details);
+          } else {
+            table.appendChild(details);
+            table.appendChild(row);
+          }
         });
         sendHeightToParent();
-      }
-
-      /* Auto-resize messaging */
-      function sendHeightToParent() {
-        try {
-          const height = document.body.scrollHeight;
-          window.parent.postMessage({ type: "resize-iframe", height: height, src: window.location.href }, "*");
-        } catch (e) {}
       }
 
       /* Initial render: ORIGINAL order (no sorting until user clicks) */
@@ -544,20 +633,7 @@
         h.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); onHeaderActivate(h); } });
       });
 
-      /* Scroll chaining helper for desktop wheels (when table hits edges) */
-      const scrollBox = document.querySelector('.fg-compact-embed .table');
-      if (scrollBox) {
-        scrollBox.addEventListener('wheel', (e) => {
-          const el = scrollBox;
-          const atTop = el.scrollTop <= 0;
-          const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-          if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
-            e.preventDefault(); // allow page to scroll instead
-            window.scrollBy({ top: e.deltaY, behavior: 'auto' });
-          }
-        }, { passive: false });
-      }
-
+      /* Scroll chaining helper removed – card now handles its own scroll */
       /* Footer embed popup & copy */
       const btn     = document.getElementById('copy-embed-btn');
       const wrapper = document.getElementById('embed-wrapper');
@@ -602,5 +678,39 @@
     })();
   </script>
 </section>
+
+<!-- High-resolution image export -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("download-img-btn");
+  if (!btn) return;
+
+  btn.addEventListener("click", function () {
+    const target = document.querySelector(".fg-compact-embed");
+    if (!target) return;
+
+    // Hide action buttons + flags for export
+    target.classList.add("exporting");
+
+    html2canvas(target, {
+      scale: 4,            // 4× scale for high resolution
+      useCORS: true,
+      backgroundColor: null
+    }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "Friendsgiving_Top10.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }).catch(() => {
+      // ignore errors
+    }).finally(() => {
+      // Restore interactive state
+      target.classList.remove("exporting");
+    });
+  });
+});
+</script>
+
 </body>
 </html>
